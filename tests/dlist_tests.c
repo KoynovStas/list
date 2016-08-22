@@ -863,6 +863,53 @@ int test_list_criter(struct test_info_t  *test_info)
 
 
 
+int test_list_iter(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_DLIST_HEAD(tmp_list);
+
+    const size_t COUNT_NODES = 100;
+    size_t i;
+    struct tmp_data nodes[COUNT_NODES];
+    struct dlist_head *it;
+    struct dlist_head *tmp_it;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+        dlist_push_back(&nodes[i].list, &tmp_list);
+
+
+    if( dlist_size(&tmp_list) != COUNT_NODES )
+        return TEST_BROKEN;
+
+
+    i=0;
+    dlist_iter(it, tmp_it, &tmp_list)   //dont change
+    {
+        if( it != &nodes[i].list )     //test nodes
+            return TEST_BROKEN;
+        i++;
+    }
+
+
+    i=0;
+    dlist_iter(it, tmp_it, &tmp_list)   //+ change (del)
+    {
+        if(i & 1)
+            dlist_del(it);
+        i++;
+    }
+
+    if( dlist_size(&tmp_list) != (COUNT_NODES/2) )
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
 
 ptest_func tests[] =
 {
@@ -890,6 +937,7 @@ ptest_func tests[] =
     //Iterator
     test_list_citer,
     test_list_criter,
+    test_list_iter,
 };
 
 
