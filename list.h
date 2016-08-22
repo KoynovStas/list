@@ -378,6 +378,37 @@ static inline void list_replace_init(struct list_head *old_node,
 
 
 
+/*
+ * list_move_to_front - delete from one list and add as another's head
+ *
+ * node: the node to move
+ * head: the head that will precede our node
+ */
+static inline void list_move_to_front(struct list_head *node,
+                                      struct list_head *head)
+{
+    sys_list_del_node(node);
+    list_push_front(node, head);
+}
+
+
+
+/*
+ * list_move_to_back - delete from one list and add as another's tail
+ *
+ * node: the node to move
+ * head: the head that will follow our node
+ */
+static inline void list_move_to_back(struct list_head *node,
+                                     struct list_head *head)
+{
+    sys_list_del_node(node);
+    list_push_back(node, head);
+}
+
+
+
+
 
 
 
