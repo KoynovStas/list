@@ -683,6 +683,26 @@ int test_list_splice_back(struct test_info_t  *test_info)
 
 
 
+//---------------- Get Data from node ----------------
+
+
+
+int test_list_data(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    struct tmp_data d1;
+
+    if( dlist_data(&d1.list, struct tmp_data, list) != &d1 )
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -699,6 +719,9 @@ ptest_func tests[] =
     test_list_rotate_right,
     test_list_splice_front,
     test_list_splice_back,
+
+    //Get Data from node
+    test_list_data,
 };
 
 
