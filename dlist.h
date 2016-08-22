@@ -573,6 +573,16 @@ static inline void dlist_splice_back(struct dlist_head *list,
 
 
 
+/*
+ * dlist_criter - constant revers iterate over a list
+ *
+ * it:    the &struct dlist_head to use as a loop cursor(iterator).
+ * head:  the head for your list.
+ *
+ * Note You do not have to change list in this cycle.
+ */
+#define dlist_criter(it, head) \
+    for( it = (head)->prev; it != (head); it = it->prev )
 
 
 
