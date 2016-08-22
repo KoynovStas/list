@@ -681,5 +681,29 @@ static inline void dlist_splice_back(struct dlist_head *list,
 
 
 
+//---------------- Algorithm ----------------
+
+
+
+
+
+/*
+ * dlist_for_each - Applies function fn to each of the elements in the range [first,last)
+ *
+ * first, last is Input iterators to the initial and final positions in a sequence.
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first:  the &dlist_head to use as a loop cursor(iterator)
+ * last:   the &dlist_head to use as a last element.
+ * fn:     Unary function that accepts an element in the range as argument.
+ */
+#define dlist_for_each(first, last, fn)  \
+    for(; first != last; fn(first), first = first->next);
+
+
+
+
 
 #endif  //DLIST_HEADER
