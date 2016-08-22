@@ -91,6 +91,23 @@ static inline int list_empty(const struct list_head *head)
 
 
 
+/*
+ * list_is_first - tests whether node is the first node in list head
+ *
+ * node: the node to test
+ * head: the head of the list
+ *
+ *  ret: true   // if [...] -> [head] -> [node] -> [...]
+ *  ret: false  // else
+ */
+static inline int list_is_first(const struct list_head *node,
+                                const struct list_head *head)
+{
+    return head->next == node;
+}
+
+
+
 
 
 #endif  //LIST_HEADER
