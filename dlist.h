@@ -509,6 +509,21 @@ static inline void dlist_splice_back(struct dlist_head *list,
 
 
 
+/*
+ * dlist_last_data - get the last struct (data) from a list
+ *
+ * head:   the list head to take the element from.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(dlist_head) within the struct of data.
+ *
+ * Note - list don't have to  be empty.
+ */
+#define dlist_last_data(head, type, member) \
+    dlist_data((head)->prev, type, member)
+
+
+
+
 
 
 
