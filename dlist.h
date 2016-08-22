@@ -111,6 +111,24 @@ static inline int dlist_is_first(const struct dlist_head *node,
 
 
 
+/*
+ * dlist_is_last - tests whether node is the last node in list head
+ *
+ * node: the node to test
+ * head: the head of the list
+ *
+ *  ret: true   // if [...] <-> [node] <-> [head] <-> [...]
+ *  ret: false  // else
+ */
+static inline int dlist_is_last(const struct dlist_head *node,
+                                const struct dlist_head *head)
+{
+    return node->next == head;
+}
+
+
+
+
 
 
 #endif  //DLIST_HEADER
