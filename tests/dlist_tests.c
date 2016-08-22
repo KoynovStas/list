@@ -271,6 +271,59 @@ int test_list_pop_front(struct test_info_t  *test_info)
 
 
 
+int test_list_pop_back(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_DLIST_HEAD(tmp_list);
+
+    struct tmp_data d1, d2, d3;
+
+
+    //add
+    dlist_push_front(&d1.list, &tmp_list);   //now d1 is first
+    dlist_push_front(&d2.list, &tmp_list);   //now d2 is first
+    dlist_push_front(&d3.list, &tmp_list);   //now d3 is first
+    if(dlist_size(&tmp_list) != 3)           //size == 3 (d3, d2, d1)
+        return TEST_BROKEN;
+
+
+    dlist_pop_back(&tmp_list);
+    if(dlist_size(&tmp_list) != 2)           //size == 2 (d2, d1)
+        return TEST_BROKEN;
+
+    if(!dlist_empty(&d1.list))
+        return TEST_BROKEN;
+
+    if(!dlist_is_first(&d3.list, &tmp_list))  //(d3, d2)
+        return TEST_BROKEN;
+
+
+    dlist_pop_back(&tmp_list);
+    if(dlist_size(&tmp_list) != 1)           //size == 1 (d3)
+        return TEST_BROKEN;
+
+    if(!dlist_empty(&d2.list))
+        return TEST_BROKEN;
+
+    if(!dlist_is_first(&d3.list, &tmp_list)) //(d3)
+        return TEST_BROKEN;
+
+
+    dlist_pop_back(&tmp_list);
+    if(dlist_size(&tmp_list) != 0)           //size == 0 ()
+        return TEST_BROKEN;
+
+    if(!dlist_empty(&d3.list))
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -279,6 +332,7 @@ ptest_func tests[] =
     test_list_is_singular,
     test_list_size,
     test_list_pop_front,
+    test_list_pop_back,
 };
 
 
