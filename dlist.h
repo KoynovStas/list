@@ -463,5 +463,27 @@ static inline void dlist_splice_back(struct dlist_head *list,
 
 
 
+//---------------- Get Data from node ----------------
+
+
+
+
+
+/*
+ * dlist_data - get the struct (data) for this node
+ *
+ * node:   the node.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(dlist_head) within the struct of data.
+ */
+#define dlist_data(node, type, member) \
+    ({  (type *)( (const char *)node - offsetof(type, member) );  })
+
+
+
+
+
+
+
 
 #endif  //DLIST_HEADER
