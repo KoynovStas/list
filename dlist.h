@@ -183,6 +183,44 @@ static inline void sys_dlist_add(struct dlist_head *node,
 
 
 
+/*
+ * dlist_push_front - add a new node
+ *
+ * node: new node to be added
+ * head: list head to add it after
+ *
+ * Inserts a new node at the beginning of the list,
+ * before its current first element.
+ *
+ * before:  [prev] <-> [head] <-> [next]
+ * after:   [prev] <-> [head] <-> [node] <-> [next]
+ *
+ */
+static inline void dlist_push_front(struct dlist_head *node, struct dlist_head *head)
+{
+    sys_dlist_add(node, head, head->next);
+}
+
+
+
+/*
+ * dlist_push_back - add a new node
+ *
+ * node: new node to be added
+ * head: list head to add it before
+ *
+ * Insert a new node at the end of the list,
+ * after its current last element.
+ *
+ * before:  [prev] <-> [head] <-> [next]
+ * after:   [prev] <-> [node] <-> [head] <-> [next]
+ */
+static inline void dlist_push_back(struct dlist_head *node, struct dlist_head *head)
+{
+    sys_dlist_add(node, head->prev, head);
+}
+
+
 
 
 
