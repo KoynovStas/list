@@ -273,6 +273,40 @@ static inline void dlist_del(struct dlist_head *node)
 
 
 
+/*
+ * dlist_pop_front - Delete first element
+ *
+ * Removes the first element in the list container,
+ * effectively reducing its size by one.
+ *
+ * head: list head
+ *
+ * Note: list_empty() on first node return true after this
+ */
+static inline void dlist_pop_front(struct dlist_head *head)
+{
+    dlist_del(head->next);
+}
+
+
+
+/*
+ * dlist_pop_back - Delete last element
+ *
+ * Removes the last element in the list container,
+ * effectively reducing its size by one.
+ *
+ * head: list head
+ *
+ * Note: list_empty() on last node return true after this
+ */
+static inline void dlist_pop_back(struct dlist_head *head)
+{
+    dlist_del(head->prev);
+}
+
+
+
 
 
 #endif  //DLIST_HEADER
