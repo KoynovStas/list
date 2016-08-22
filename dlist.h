@@ -48,6 +48,95 @@
 /*
  * Simple Circular doubly linked lists implementation.
  *
+ * Definitions and designations:
+ *
+ *
+ *   next: ->
+ *   prev: <-
+ *
+ *
+ *   empty list:
+ *       ______
+ *      |      |
+ *   -->| head |<--
+ *   |  |______|  |
+ *   |            |
+ *   |____________|
+ *
+ *
+ *
+ *   list with nodes:
+ *       ______     _______     _______
+ *      |      |   |       |   |       |
+ *   -->| head |<->| node0 |<->| node1 |<--
+ *   |  |______|   |_______|   |_______|  |
+ *   |                                    |
+ *   |____________________________________|
+ *
+ *
+ *
+ * Node - a data structure (payloads) in which one of the fields is
+ * a variable of type dlist_head.
+ *
+ * example:
+ *
+ * struct tmp_data
+ * {
+ *    struct dlist_head list;
+ *    int               data;
+ * };
+ *
+ *
+ * node* - a pointer to a Node, which is a pointer == pointer to
+ * member (dlist_head) within the struct of data.
+ *
+ * If a member(dlist_head) in data structure (payloads) is
+ * the first member (offset == 0) then the Node* == node*
+ *
+ * To get pointer to data structure(payloads), if you have a pointer to a node,
+ * use the function: dlist_data
+ *
+ *
+ *  Algorithmic complexity:
+ *
+ *  dlist_size            -     O(n)
+ *  dlist_empty           -     O(1)  use it for check
+ *  dlist_is_first        -     O(1)
+ *  dlist_is_last         -     O(1)
+ *  dlist_is_singular     -     O(1)
+ *
+ *  dlist_push_front      -     O(1)
+ *  dlist_pop_front       -     O(1)
+ *  dlist_push_back       -     O(1)
+ *  dlist_pop_back        -     O(1)
+ *  dlist_del             -     O(1)
+ *  dlist_replace         -     O(1)
+ *  dlist_replace_init    -     O(1)
+ *  dlist_move_to_front   -     O(1)
+ *  dlist_move_to_back    -     O(1)
+ *  dlist_rotate_left     -     O(1)
+ *  dlist_rotate_right    -     O(1)
+ *  dlist_splice_front    -     O(1)
+ *  dlist_splice_back     -     O(1)
+ *
+ *  //Get Data from node
+ *  dlist_data            -     O(1)
+ *  dlist_data_or_null    -     O(1)
+ *  dlist_first_data      -     O(1)
+ *  dlist_last_data       -     O(1)
+ *
+ *  //Iterator
+ *  dlist_citer           -     O(n)
+ *  dlist_criter          -     O(n)
+ *  dlist_iter            -     O(n)
+ *  dlist_riter           -     O(n)
+ *  dlist_data_citer      -     O(n)
+ *  dlist_data_criter     -     O(n)
+ *  dlist_data_iter       -     O(n)
+ *  dlist_data_riter      -     O(n)
+ *
+ *  //Algorithm
+ *  dlist_for_each        -     O(n)
  */
 
 
