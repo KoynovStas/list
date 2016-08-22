@@ -703,6 +703,34 @@ int test_list_data(struct test_info_t  *test_info)
 
 
 
+int test_list_data_or_null(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_DLIST_HEAD(tmp_list);
+
+    struct tmp_data d1;
+
+    dlist_init_head(&d1.list);
+
+
+    if( dlist_data_or_null(&d1.list, struct tmp_data, list) != NULL )
+        return TEST_BROKEN;
+
+
+    dlist_push_front(&d1.list, &tmp_list);
+
+
+    if( dlist_data_or_null(&d1.list, struct tmp_data, list) != &d1 )
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -722,6 +750,7 @@ ptest_func tests[] =
 
     //Get Data from node
     test_list_data,
+    test_list_data_or_null,
 };
 
 
