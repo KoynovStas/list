@@ -663,6 +663,23 @@ static inline void dlist_splice_back(struct dlist_head *list,
 
 
 
+/*
+ * dlist_data_riter - reverse iterate over list of given type
+ *
+ * it:     the &struct data to use as a loop cursor(iterator).
+ * head:   the &dlist_head to take the element from.
+ * tmp_it: another &struct dlist_head to use as temporary cursor(iterator)
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(dlist_head) within the struct of data.
+ */
+#define dlist_data_riter(it, head, tmp_it, type, member)                        \
+    for (it = dlist_data((head)->prev, type, member), tmp_it = it->member.prev; \
+         &it->member != (head);                                                 \
+         it = dlist_data(tmp_it, type, member), tmp_it = it->member.prev)
+
+
+
+
 
 
 #endif  //DLIST_HEADER
