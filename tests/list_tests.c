@@ -216,6 +216,7 @@ int test_list_size(struct test_info_t  *test_info)
 }
 
 
+
 int test_list_pop_front(struct test_info_t  *test_info)
 {
 
@@ -322,6 +323,45 @@ int test_list_pop_back(struct test_info_t  *test_info)
 
 
 
+int test_list_replace_init(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_LIST_HEAD(tmp_list);
+
+    struct tmp_data d1, d2;
+
+
+    //add
+    list_push_front(&d1.list, &tmp_list);
+
+    if(!list_is_last(&d1.list, &tmp_list))  //d1 in list
+        return TEST_BROKEN;
+
+    if(list_is_last(&d2.list, &tmp_list))   //d2 dont in list
+        return TEST_BROKEN;
+
+
+    list_replace_init(&d1.list, &d2.list);
+
+
+    if(list_size(&tmp_list) != 1)           //size == 1 (d1)
+        return TEST_BROKEN;
+
+    if(list_is_last(&d1.list, &tmp_list))   //d1 dont in list
+        return TEST_BROKEN;
+
+
+    if(!list_is_last(&d2.list, &tmp_list))  //d1 dont in list
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -331,6 +371,7 @@ ptest_func tests[] =
     test_list_size,
     test_list_pop_front,
     test_list_pop_back,
+    test_list_replace_init,
 };
 
 
