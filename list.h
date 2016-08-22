@@ -521,6 +521,19 @@ static inline void list_splice_back(struct list_head *list,
 
 
 
+/*
+ * list_data_or_null - get the struct (data) for this node
+ *
+ * node:   the node.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(list_head) within the struct of data.
+ *
+ * Note it returns NULL if the list(node) is empty.
+ */
+#define list_data_or_null(node, type, member) \
+    (!list_empty(node) ? list_data(node, type, member) : NULL)
+
+
 
 
 
