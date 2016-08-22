@@ -222,6 +222,55 @@ static inline void dlist_push_back(struct dlist_head *node, struct dlist_head *h
 
 
 
+/*
+ * Delete a list node by making the prev/next nodes
+ * point to each other.
+ *
+ * This is only for internal list manipulation where we know
+ * the prev/next nodes already!
+ */
+static inline void sys_dlist_del(struct dlist_head *prev, struct dlist_head *next)
+{
+    next->prev = prev;
+    prev->next = next;
+}
+
+
+
+/*
+ * sys_dlist_del_node - deletes node from list.
+ *
+ * node: the element to delete from the list.
+ *
+ * Note: dlist_empty() on node does not return true after this,
+ *       the node is in an undefined state.
+ *
+ * before:  [prev] <-> [node] <-> [next]
+ * after:   [prev] <-> [next];              old_val <- [node] -> old_val
+ */
+static inline void sys_dlist_del_node(struct dlist_head *node)
+{
+    sys_dlist_del(node->prev, node->next);
+}
+
+
+
+/*
+ * dlist_del - deletes node from list.
+ *
+ * node: the element to delete from the list.
+ *
+ * Note: dlist_empty() on node return true after this
+ *
+ * before:  [prev] <-> [node] <-> [next]
+ * after:   [prev] <-> [next];              self <- [node] -> self
+ */
+static inline void dlist_del(struct dlist_head *node)
+{
+    sys_dlist_del(node->prev, node->next);
+    dlist_init_head(node);
+}
+
 
 
 
