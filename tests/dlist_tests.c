@@ -164,12 +164,66 @@ int test_list_is_singular(struct test_info_t  *test_info)
 
 
 
+int test_list_size(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_DLIST_HEAD(tmp_list);
+
+    struct tmp_data d1, d2, d3;
+
+
+    //add
+    if(dlist_size(&tmp_list) != 0)           //size == 0 (list is empty)
+        return TEST_BROKEN;
+
+
+    dlist_push_front(&d1.list, &tmp_list);   //now d1 is first
+    if(dlist_size(&tmp_list) != 1)           //size == 1 (d1)
+        return TEST_BROKEN;
+
+
+
+    dlist_push_back(&d2.list, &tmp_list);    //now d2 is last
+    if(dlist_size(&tmp_list) != 2)           //size == 2 (d1,d2)
+        return TEST_BROKEN;
+
+
+    dlist_push_back(&d3.list, &tmp_list);    //now d2 is last
+    if(dlist_size(&tmp_list) != 3)           //size == 3 (d1,d2, d3)
+        return TEST_BROKEN;
+
+
+    //delete
+    dlist_del(&d1.list);                     //now d1 is not in list
+    if(dlist_size(&tmp_list) != 2)           //size == 1 (d2,d3)
+        return TEST_BROKEN;
+
+
+
+    dlist_del(&d2.list);                     //now d2 is not in list
+    if(dlist_size(&tmp_list) != 1)           //size == 2 (d3)
+        return TEST_BROKEN;
+
+
+    dlist_del(&d3.list);                     //now d3 is not in list
+    if(dlist_size(&tmp_list) != 0)           //size == 0 (list is empty)
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
     test_list_is_first,
     test_list_is_last,
     test_list_is_singular,
+    test_list_size,
 };
 
 
