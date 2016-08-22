@@ -643,6 +643,24 @@ static inline void list_splice_back(struct list_head *list,
 
 
 
+/*
+ * list_data_iter - iterate over list of given type
+ *
+ * it:     the &struct data to use as a loop cursor(iterator).
+ * head:   the &list_head to take the element from.
+ * tmp_it: another &struct list_head to use as temporary cursor(iterator)
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(list_head) within the struct of data.
+ */
+#define list_data_iter(it, head, tmp_it, type, member)                         \
+    for (it = list_data((head)->next, type, member), tmp_it = it->member.next; \
+         &it->member != (head);                                                \
+         it = list_data(tmp_it, type, member), tmp_it = it->member.next)
+
+
+
+
+
 
 
 
