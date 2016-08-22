@@ -535,6 +535,20 @@ static inline void list_splice_back(struct list_head *list,
 
 
 
+/*
+ * list_first_data - get the first struct (data) from a list
+ *
+ * head:   the list head to take the element from.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(list_head) within the struct of data.
+ *
+ * Note - list don't have to  be empty.
+ */
+#define list_first_data(head, type, member) \
+    list_data((head)->next, type, member)
+
+
+
 
 
 
