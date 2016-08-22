@@ -408,6 +408,28 @@ static inline void list_move_to_back(struct list_head *node,
 
 
 
+/*
+ * list_rotate_left - rotate the list to the left
+ *
+ * head: the head of the list
+ *
+ * before:  [...] -> [nodeN] -> [head]  -> [node1] -> [node2]  -> [...]
+ * after:   [...] -> [nodeN] -> [node1] -> [head]  -> [node2]  -> [...]
+ */
+static inline void list_rotate_left(struct list_head *head)
+{
+    struct list_head *first;
+
+    if( !list_empty(head) )
+    {
+        first = head->next;
+        list_move_to_back(first, head);
+    }
+}
+
+
+
+
 
 
 
