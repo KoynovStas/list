@@ -9,7 +9,8 @@ GCC          =  gcc
 
 
 # list of tests for build
-TESTS  = list_tests
+TESTS  = list_tests \
+         dlist_tests
 
 
 
