@@ -362,6 +362,97 @@ int test_list_replace_init(struct test_info_t  *test_info)
 
 
 
+int test_list_move_to_front(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_LIST_HEAD(tmp_list1);
+    DECLARE_LIST_HEAD(tmp_list2);
+
+    struct tmp_data d1, d2;
+
+
+    //add
+    list_push_front(&d1.list, &tmp_list1);
+    list_push_front(&d2.list, &tmp_list2);
+
+
+    list_move_to_front(&d1.list, &tmp_list2);
+
+
+    if(list_size(&tmp_list1) != 0)             //d1 moved to list2
+        return TEST_BROKEN;
+
+
+    if(list_size(&tmp_list2) != 2)             //d1 moved to list2
+        return TEST_BROKEN;
+
+
+    if(list_is_first(&d1.list, &tmp_list1))    //d1 in list2
+        return TEST_BROKEN;
+
+
+    if(list_is_first(&d2.list, &tmp_list2))    //d2 is not first
+        return TEST_BROKEN;
+
+
+    if(!list_is_first(&d1.list, &tmp_list2))   //d1 is first in list2
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
+int test_list_move_to_back(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_LIST_HEAD(tmp_list1);
+    DECLARE_LIST_HEAD(tmp_list2);
+
+    struct tmp_data d1, d2;
+
+
+    //add
+    list_push_front(&d1.list, &tmp_list1);
+    list_push_front(&d2.list, &tmp_list2);
+
+
+    list_move_to_back(&d1.list, &tmp_list2);
+
+
+    if(list_size(&tmp_list1) != 0)             //d1 moved to list2
+        return TEST_BROKEN;
+
+
+    if(list_size(&tmp_list2) != 2)             //d1 moved to list2
+        return TEST_BROKEN;
+
+
+    if(list_is_last(&d1.list, &tmp_list1))     //d1 last in list2
+        return TEST_BROKEN;
+
+
+    if(!list_is_first(&d2.list, &tmp_list2))   //d2 is first
+        return TEST_BROKEN;
+
+
+    if(!list_is_last(&d1.list, &tmp_list2))    //d1 is last in list2
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -372,6 +463,8 @@ ptest_func tests[] =
     test_list_pop_front,
     test_list_pop_back,
     test_list_replace_init,
+    test_list_move_to_front,
+    test_list_move_to_back,
 };
 
 
