@@ -54,6 +54,28 @@
 
 
 
+struct list_head
+{
+    struct list_head *next;
+};
+
+
+
+
+
+#define INIT_LIST_HEAD(name) { &(name) }
+
+#define DECLARE_LIST_HEAD(name) \
+    struct list_head name = INIT_LIST_HEAD(name)
+
+
+
+static inline void list_init_head(struct list_head *list)
+{
+    list->next = list;
+}
+
+
 
 
 
