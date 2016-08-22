@@ -77,6 +77,20 @@ static inline void list_init_head(struct list_head *list)
 
 
 
+/*
+ * list_empty - tests whether a list is empty
+ *
+ * head: the list to test.
+ *
+ * ret: true if the container size is 0 false otherwise.
+ */
+static inline int list_empty(const struct list_head *head)
+{
+    return head->next == head;
+}
+
+
+
 
 
 #endif  //LIST_HEADER
