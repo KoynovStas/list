@@ -204,5 +204,63 @@ static inline struct list_head *list_prev(const struct list_head *node)
 
 
 
+/*
+ * Insert a new node between two known consecutive nodes.
+ *
+ * This is only for internal list manipulation where we know
+ * the prev/next nodes already!
+ *
+ * before:  [prev] -> [next]
+ * after:   [prev] -> [node] -> [next]
+ *
+ */
+static inline void sys_list_add(struct list_head *node,
+                                struct list_head *prev)
+{
+    node->next = prev->next;
+    prev->next = node;
+}
+
+
+
+/*
+ * list_push_front - add a new node
+ *
+ * node: new node to be added
+ * head: list head to add it after
+ *
+ * Inserts a new node at the beginning of the list,
+ * before its current first element.
+ *
+ * before:  [prev] -> [head] -> [next]
+ * after:   [prev] -> [head] -> [node] -> [next]
+ *
+ */
+static inline void list_push_front(struct list_head *node, struct list_head *head)
+{
+    sys_list_add(node, head);
+}
+
+
+
+/*
+ * list_push_back - add a new node
+ *
+ * node: new node to be added
+ * head: list head to add it before
+ *
+ * Insert a new node at the end of the list,
+ * after its current last element.
+ *
+ * before:  [prev] -> [head] -> [next]
+ * after:   [prev] -> [node] -> [head] -> [next]
+ */
+static inline void list_push_back(struct list_head *node, struct list_head *head)
+{
+    sys_list_add(node, list_last(head));
+}
+
+
+
 
 #endif  //LIST_HEADER
