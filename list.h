@@ -350,6 +350,36 @@ static inline void list_pop_back(struct list_head *head)
 
 
 
+/*
+ * list_replace - replace old node by new node
+ *
+ * old_node: the element to be replaced
+ * new_node: the new element to insert
+ *
+ * If old_node was empty, it will be overwritten for _init variant
+ *
+ * Note: new_node should be free. out of the list.
+ */
+static inline void list_replace(struct list_head *old_node,
+                                struct list_head *new_node)
+{
+    struct list_head *prev_old_node = list_prev(old_node);
+
+    new_node->next       = old_node->next;
+    prev_old_node->next  = new_node;
+}
+
+static inline void list_replace_init(struct list_head *old_node,
+                                     struct list_head *new_node)
+{
+    list_replace(old_node, new_node);
+    list_init_head(old_node);
+}
+
+
+
+
+
 
 
 #endif  //LIST_HEADER
