@@ -429,6 +429,26 @@ static inline void list_rotate_left(struct list_head *head)
 
 
 
+/*
+ * list_rotate_right - rotate the list to the right
+ *
+ * head: the head of the list
+ *
+ * before:  [...] -> [nodeN] -> [head]  -> [node1] -> [node2] -> [...]
+ * after:   [...] -> [head]  -> [nodeN] -> [node1] -> [node2] -> [...]
+ */
+static inline void list_rotate_right(struct list_head *head)
+{
+    struct list_head *last;
+
+    if( !list_empty(head) )
+    {
+        last = list_last(head);
+        list_move_to_front(last, head);
+    }
+}
+
+
 
 
 
