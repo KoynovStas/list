@@ -553,6 +553,28 @@ static inline void dlist_splice_back(struct dlist_head *list,
 
 
 
+//---------------- Iterator ----------------
+
+
+
+
+
+/*
+ * dlist_citer - constant iterate over a list
+ *
+ * it:    the &struct dlist_head to use as a loop cursor(iterator).
+ * head:  the head for your list.
+ *
+ * Note You do not have to change list in this cycle.
+ *
+ */
+#define dlist_citer(it, head) \
+    for( it = (head)->next; it != (head); it = it->next )
+
+
+
+
+
 
 
 
