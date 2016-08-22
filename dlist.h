@@ -161,6 +161,29 @@ static inline size_t dlist_size(const struct dlist_head *head)
 
 
 
+/*
+ * Insert a new node between two known consecutive nodes.
+ *
+ * This is only for internal list manipulation where we know
+ * the prev/next nodes already!
+ *
+ * before:  [prev] <-> [next]
+ * after:   [prev] <-> [node] <-> [next]
+ *
+ */
+static inline void sys_dlist_add(struct dlist_head *node,
+                                 struct dlist_head *prev,
+                                 struct dlist_head *next)
+{
+    next->prev = node;
+    node->next = next;
+    node->prev = prev;
+    prev->next = node;
+}
+
+
+
+
 
 
 
