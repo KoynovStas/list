@@ -593,6 +593,29 @@ static inline void list_splice_back(struct list_head *list,
 
 
 
+//---------------- Iterator ----------------
+
+
+
+
+
+/*
+ * list_citer - constant iterate over a list
+ *
+ * it:   the &struct list_head to use as a loop cursor(iterator).
+ * head: the head for your list.
+ *
+ * Note: You do not have to change list in this cycle.
+ *
+ */
+#define list_citer(it, head) \
+    for( it = (head)->next; it != (head); it = it->next )
+
+
+
+
+
+
 
 
 
