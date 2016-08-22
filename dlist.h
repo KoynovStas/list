@@ -143,6 +143,24 @@ static inline int dlist_is_singular(const struct dlist_head *head)
 
 
 
+/*
+ * dlist_size - Returns the number of elements in the list container.
+ *
+ * head: the list to test.
+ * ret:  the number of elements in the list
+ */
+static inline size_t dlist_size(const struct dlist_head *head)
+{
+    size_t size = 0;
+    const struct dlist_head *it;
+    for(it = (head)->next; it != (head); it = it->next)
+        size++;
+
+    return size;
+}
+
+
+
 
 
 
