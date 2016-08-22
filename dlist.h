@@ -79,6 +79,20 @@ static inline void dlist_init_head(struct dlist_head *list)
 
 
 
+/*
+ * dlist_empty - tests whether a list is empty
+ *
+ * head: the list to test.
+ *
+ * ret: true  //if the container size is 0
+ * ret: false //otherwise.
+ */
+static inline int dlist_empty(const struct dlist_head *head)
+{
+    return head->next == head;
+}
+
+
 
 
 #endif  //DLIST_HEADER
