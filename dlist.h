@@ -599,6 +599,19 @@ static inline void dlist_splice_back(struct dlist_head *list,
 
 
 
+/*
+ * dlist_riter - reverse iterate over a list safe against removal of list node
+ *
+ * it:     the &struct dlist_head to use as a loop cursor(iterator).
+ * tmp_it: another &struct dlist_head to use as temporary cursor(iterator)
+ * head:   the head for your list.
+ */
+#define dlist_riter(it, tmp_it, head)          \
+    for(it  = (head)->prev, tmp_it = it->prev; \
+        it != (head);                          \
+        it  = tmp_it, tmp_it = it->prev)
+
+
 
 
 
