@@ -159,6 +159,50 @@ static inline size_t list_size(const struct list_head *head)
 
 
 
+/*
+ * list_first - Returns the first node of the list.
+ *
+ * head: the list
+ * ret:  the first node of the list //if list dont empty
+ * ret:  head                       //if list empty
+ */
+static inline struct list_head *list_first(const struct list_head *head)
+{
+    return head->next;
+}
+
+
+
+/*
+ * list_last - Returns the last node of the list.
+ *
+ * head: the list
+ * ret:  the last node of the list //if list dont empty
+ * ret:  head                      //if list empty
+ */
+static inline struct list_head *list_last(const struct list_head *head)
+{
+    struct list_head *it;
+    for(it = (head)->next; it->next != (head); it = it->next);
+
+    return it;
+}
+
+
+
+/*
+ * list_prev - Returns the previous node of the current node.
+ *
+ * head: the node
+ * ret:  the previous node of the node //if node is in list (dont empty)
+ * ret:  node                          //if node is not in list (empty)
+ */
+static inline struct list_head *list_prev(const struct list_head *node)
+{
+    return list_last(node);
+}
+
+
 
 
 #endif  //LIST_HEADER
