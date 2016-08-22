@@ -365,6 +365,47 @@ static inline void dlist_move_to_back(struct dlist_head *node,
 
 
 
+/*
+ * dlist_rotate_left - rotate the list to the left
+ *
+ * head: the head of the list
+ *
+ * before:  [...] <-> [nodeN] <-> [head]  <-> [node1] <-> [node2]  <-> [...]
+ * after:   [...] <-> [nodeN] <-> [node1] <-> [head]  <-> [node2]  <-> [...]
+ */
+static inline void dlist_rotate_left(struct dlist_head *head)
+{
+    struct dlist_head *first;
+
+    if( !dlist_empty(head) )
+    {
+        first = head->next;
+        dlist_move_to_back(first, head);
+    }
+}
+
+
+
+/*
+ * dlist_rotate_right - rotate the list to the right
+ *
+ * head: the head of the list
+ *
+ * before:  [...] <-> [nodeN] <-> [head]  <-> [node1] <-> [node2] <-> [...]
+ * after:   [...] <-> [head]  <-> [nodeN] <-> [node1] <-> [node2] <-> [...]
+ */
+static inline void dlist_rotate_right(struct dlist_head *head)
+{
+    struct dlist_head *last;
+
+    if( !dlist_empty(head) )
+    {
+        last = head->prev;
+        dlist_move_to_front(last, head);
+    }
+}
+
+
 
 
 
