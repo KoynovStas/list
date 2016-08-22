@@ -53,4 +53,32 @@
 
 
 
+
+struct dlist_head
+{
+    struct dlist_head *next;
+    struct dlist_head *prev;
+};
+
+
+
+
+
+#define INIT_DLIST_HEAD(name) { &(name), &(name) }
+
+#define DECLARE_DLIST_HEAD(name) \
+    struct dlist_head name = INIT_DLIST_HEAD(name)
+
+
+
+static inline void dlist_init_head(struct dlist_head *list)
+{
+    list->next = list;
+    list->prev = list;
+}
+
+
+
+
+
 #endif  //DLIST_HEADER
