@@ -262,5 +262,56 @@ static inline void list_push_back(struct list_head *node, struct list_head *head
 
 
 
+/*
+ * Delete a list node by making the prev/next nodes
+ * point to each other.
+ *
+ * This is only for internal list manipulation where we know
+ * the prev/next nodes already!
+ */
+static inline void sys_list_del(struct list_head *prev, struct list_head *next)
+{
+    prev->next = next;
+}
+
+
+
+/*
+ * sys_list_del_node - deletes node from list.
+ *
+ * node: the element to delete from the list.
+ *
+ * Note: list_empty() on node does not return true after this,
+ *       the node is in an undefined state.
+ *
+ * before:  [prev] -> [node] -> [next]
+ * after:   [prev] -> [next];              [node] -> old_val
+ */
+static inline void sys_list_del_node(struct list_head *node)
+{
+    sys_list_del(list_prev(node), node->next);
+}
+
+
+
+/*
+ * list_del - deletes node from list.
+ *
+ * node: the element to delete from the list.
+ *
+ * Note: list_empty() on node return true after this
+ *
+ * before:  [prev] -> [node] -> [next]
+ * after:   [prev] -> [next];              [node] -> self
+ */
+static inline void list_del(struct list_head *node)
+{
+    sys_list_del_node(node);
+    list_init_head(node);
+}
+
+
+
+
 
 #endif  //LIST_HEADER
