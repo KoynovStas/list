@@ -108,6 +108,23 @@ static inline int list_is_first(const struct list_head *node,
 
 
 
+/*
+ * list_is_last - tests whether node is the last node in list head
+ *
+ * node: the node to test
+ * head: the head of the list
+ *
+ *  ret: true   // if [...] -> [node] -> [head] -> [...]
+ *  ret: false  // else
+ */
+static inline int list_is_last(const struct list_head *node,
+                               const struct list_head *head)
+{
+    return node->next == head;
+}
+
+
+
 
 
 #endif  //LIST_HEADER
