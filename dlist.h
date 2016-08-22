@@ -407,6 +407,59 @@ static inline void dlist_rotate_right(struct dlist_head *head)
 
 
 
+static inline void sys_dlist_splice(struct dlist_head *list,
+                                    struct dlist_head *prev,
+                                    struct dlist_head *next)
+{
+    struct dlist_head *first = list->next;
+    struct dlist_head *last  = list->prev;
+
+    first->prev = prev;
+    prev->next  = first;
+
+    last->next = next;
+    next->prev = last;
+}
+
+
+
+/*
+ * dlist_splice_front - transfers all the elements of list into the container(head)
+ *                     this is designed for stacks
+ *
+ * list: the new list to add.
+ * head: the place to add elements of list.
+ */
+static inline void dlist_splice_front(struct dlist_head *list,
+                                      struct dlist_head *head)
+{
+    if(!dlist_empty(list))
+    {
+        sys_dlist_splice(list, head, head->next);
+        dlist_init_head(list);
+    }
+}
+
+
+
+/*
+ * dlist_splice_back - transfers all the elements of list into the container(head)
+ *                     this is designed for queue
+ *
+ * list: the new list to add.
+ * head: the place to add elements of list.
+ */
+static inline void dlist_splice_back(struct dlist_head *list,
+                                     struct dlist_head *head)
+{
+    if (!dlist_empty(list))
+    {
+        sys_dlist_splice(list, head->prev, head);
+        dlist_init_head(list);
+    }
+}
+
+
 
 
 
