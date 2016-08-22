@@ -450,6 +450,55 @@ static inline void list_rotate_right(struct list_head *head)
 
 
 
+static inline void sys_list_splice(struct list_head *list,
+                                   struct list_head *prev,
+                                   struct list_head *next)
+{
+    struct list_head *first = list->next;
+    struct list_head *last  = list_last(list);
+
+    prev->next = first;
+    last->next = next;
+}
+
+
+
+/*
+ * list_splice_front - transfers all the elements of list into the container(head)
+ *                     this is designed for stacks
+ *
+ * list: the new list to add.
+ * head: the place to add elements of list.
+ */
+static inline void list_splice_front(struct list_head *list,
+                                     struct list_head *head)
+{
+    if(!list_empty(list))
+    {
+        sys_list_splice(list, head, head->next);
+        list_init_head(list);
+    }
+}
+
+
+
+/*
+ * list_splice_back - transfers all the elements of list into the container(head)
+ *                     this is designed for queue
+ *
+ * list: the new list to add.
+ * head: the place to add elements of list.
+ */
+static inline void list_splice_back(struct list_head *list,
+                                    struct list_head *head)
+{
+    if (!list_empty(list))
+    {
+        sys_list_splice(list, list_prev(head), head);
+        list_init_head(list);
+    }
+}
+
 
 
 
