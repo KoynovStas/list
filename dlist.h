@@ -335,6 +335,38 @@ static inline void dlist_replace_init(struct dlist_head *old_node,
 
 
 
+/*
+ * dlist_move_to_front - delete from one list and add as another's head
+ *
+ * node: the node to move
+ * head: the head that will precede our node
+ */
+static inline void dlist_move_to_front(struct dlist_head *node,
+                                       struct dlist_head *head)
+{
+    sys_dlist_del_node(node);
+    dlist_push_front(node, head);
+}
+
+
+
+/*
+ * dlist_move_to_back - delete from one list and add as another's tail
+ *
+ * node: the node to move
+ * head: the head that will follow our node
+ */
+static inline void dlist_move_to_back(struct dlist_head *node,
+                                      struct dlist_head *head)
+{
+    sys_dlist_del_node(node);
+    dlist_push_back(node, head);
+}
+
+
+
+
+
 
 
 
