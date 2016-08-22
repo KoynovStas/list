@@ -48,6 +48,90 @@
 /*
  * Simple Circular linked lists implementation.
  *
+ * Definitions and designations:
+ *
+ *
+ *   next: -->
+ *
+ *
+ *   empty list:
+ *       ______
+ *      |      |
+ *   -->| head |---
+ *   |  |______|  |
+ *   |            |
+ *   |____________|
+ *
+ *
+ *
+ *   list with nodes:
+ *       ______     _______     _______
+ *      |      |   |       |   |       |
+ *   -->| head |-->| node0 |-->| node1 |---
+ *   |  |______|   |_______|   |_______|  |
+ *   |                                    |
+ *   |____________________________________|
+ *
+ *
+ *
+ * Node - a data structure (payloads) in which one of the fields is
+ * a variable of type list_head.
+ *
+ * example:
+ *
+ * struct tmp_data
+ * {
+ *    struct list_head list;
+ *    int              data;
+ * };
+ *
+ *
+ * node* - a pointer to a Node, which is a pointer == pointer to
+ * member (list_head) within the struct of data.
+ *
+ * If a member(list_head) in data structure (payloads) is
+ * the first member (offset == 0) then the Node* == node*
+ *
+ * To get pointer to data structure(payloads), if you have a pointer to a node,
+ * use the function: list_data
+ *
+ *
+ *  Algorithmic complexity:
+ *
+ *  list_size            -     O(n)
+ *  list_empty           -     O(1)  use it for check
+ *  list_is_first        -     O(1)
+ *  list_is_last         -     O(1)
+ *  list_is_singular     -     O(1)
+ *
+ *  list_push_front      -     O(1)
+ *  list_pop_front       -     O(1)
+ *  list_push_back       -     O(n)
+ *  list_pop_back        -     O(n)
+ *  list_del             -     O(n)
+ *  list_replace         -     O(n)
+ *  list_replace_init    -     O(n)
+ *  list_move_to_front   -     O(n)
+ *  list_move_to_back    -     O(2n)
+ *  list_rotate_left     -     O(2n)
+ *  list_rotate_right    -     O(2n)
+ *  list_splice_front    -     O(n)
+ *  list_splice_back     -     O(2n)
+ *
+ *  //Get Data from node
+ *  list_data            -     O(1)
+ *  list_data_or_null    -     O(1)
+ *  list_first_data      -     O(1)
+ *  list_last_data       -     O(1)
+ *
+ *  //Iterator
+ *  list_citer           -     O(n)
+ *  list_iter            -     O(n)
+ *  list_data_citer      -     O(n)
+ *  list_data_iter       -     O(n)
+ *
+ *  //Algorithm
+ *  list_for_each        -     O(n)
  */
 
 
@@ -681,6 +765,7 @@ static inline void list_splice_back(struct list_head *list,
  */
 #define list_for_each(first, last, fn)  \
     for(; first != last; fn(first), first = first->next);
+
 
 
 
