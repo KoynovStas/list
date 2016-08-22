@@ -481,6 +481,21 @@ static inline void dlist_splice_back(struct dlist_head *list,
 
 
 
+/*
+ * dlist_data_or_null - get the struct (data) for this node
+ *
+ * node:   the node.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(dlist_head) within the struct of data.
+ *
+ * Note it returns NULL if the list(node) is empty.
+ */
+#define dlist_data_or_null(node, type, member) \
+    (!dlist_empty(node) ? dlist_data(node, type, member) : NULL)
+
+
+
+
 
 
 
