@@ -307,6 +307,35 @@ static inline void dlist_pop_back(struct dlist_head *head)
 
 
 
+/*
+ * dlist_replace - replace old node by new node
+ *
+ * old_node: the element to be replaced
+ * new_node: the new element to insert
+ *
+ * If old_node was empty, it will be overwritten for _init variant
+ *
+ * Note: new_node should be free. out of the list.
+ */
+static inline void dlist_replace(struct dlist_head *old_node,
+                                 struct dlist_head *new_node)
+{
+    new_node->next       = old_node->next;
+    new_node->next->prev = new_node;
+    new_node->prev       = old_node->prev;
+    new_node->prev->next = new_node;
+}
+
+static inline void dlist_replace_init(struct dlist_head *old_node,
+                                      struct dlist_head *new_node)
+{
+    dlist_replace(old_node, new_node);
+    dlist_init_head(old_node);
+}
+
+
+
+
 
 
 #endif  //DLIST_HEADER
