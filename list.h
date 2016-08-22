@@ -613,6 +613,19 @@ static inline void list_splice_back(struct list_head *list,
 
 
 
+/*
+ * list_iter - iterate over a list safe against removal of list node
+ *
+ * it:     the &struct list_head to use as a loop cursor(iterator).
+ * tmp_it: another &struct list_head to use as temporary cursor(iterator)
+ * head:   the head for your list.
+ */
+#define list_iter(it, tmp_it, head)                          \
+    for( it = (head)->next, tmp_it = it->next; it != (head); \
+         it = tmp_it, tmp_it = it->next)
+
+
+
 
 
 
