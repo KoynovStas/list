@@ -94,5 +94,23 @@ static inline int dlist_empty(const struct dlist_head *head)
 
 
 
+/*
+ * dlist_is_first - tests whether node is the first node in list head
+ *
+ * node: the node to test
+ * head: the head of the list
+ *
+ *  ret: true   // if [...] <-> [head] <-> [node] <-> [...]
+ *  ret: false  // else
+ */
+static inline int dlist_is_first(const struct dlist_head *node,
+                                 const struct dlist_head *head)
+{
+    return node->prev == head;
+}
+
+
+
+
 
 #endif  //DLIST_HEADER
