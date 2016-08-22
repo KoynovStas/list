@@ -964,6 +964,58 @@ int test_list_data_iter(struct test_info_t  *test_info)
 
 
 
+//---------------- Algorithm ----------------
+
+
+
+void node_inc(struct list_head *it)
+{
+    struct tmp_data *data = list_data(it, struct tmp_data, list);
+
+    data->data++;
+}
+
+
+int test_list_for_each(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_LIST_HEAD(tmp_list);
+
+    const size_t COUNT_NODES = 100;
+    size_t i;
+    struct tmp_data  nodes[COUNT_NODES];
+    struct tmp_data  *it_data;
+    struct list_head *it;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        list_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    it = tmp_list.next;
+    list_for_each(it, &tmp_list, node_inc);
+
+
+    i=0;
+    list_data_citer(it_data, &tmp_list, struct tmp_data, list)
+    {
+        if( it_data->data != (i+1) )
+            return TEST_BROKEN;
+
+        i++;
+    }
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -992,6 +1044,9 @@ ptest_func tests[] =
     test_list_iter,
     test_list_data_citer,
     test_list_data_iter,
+
+    //Algorithm
+    test_list_for_each
 };
 
 
