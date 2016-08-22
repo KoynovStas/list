@@ -577,6 +577,21 @@ static inline void list_splice_back(struct list_head *list,
 
 
 
+/*
+ * list_last_data_or_null - get the last struct (data) from a list
+ *
+ * head:   the list head to take the element from.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(list_head) within the struct of data.
+ *
+ * Note it returns NULL if the list(node) is empty.
+ */
+#define list_last_data_or_null(head, type, member) \
+    (!list_empty(head) ? list_last_data(head, type, member) : NULL)
+
+
+
+
 
 
 
