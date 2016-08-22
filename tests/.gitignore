@@ -1,0 +1,7 @@
+# Binary files (tests)
+*_tests
+
+
+
+# Files that we don't want to ignore
+!.gitignore
