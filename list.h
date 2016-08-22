@@ -312,6 +312,44 @@ static inline void list_del(struct list_head *node)
 
 
 
+/*
+ * list_pop_front - Delete first element
+ *
+ * Removes the first element in the list container,
+ * effectively reducing its size by one.
+ *
+ * head: list head
+ *
+ * Note: list_empty() on first node return true after this
+ */
+static inline void list_pop_front(struct list_head *head)
+{
+    struct list_head *first_node = head->next;
+    head->next = first_node->next;
+    list_init_head(first_node);
+}
+
+
+
+/*
+ * list_pop_back - Delete last element
+ *
+ * Removes the last element in the list container,
+ * effectively reducing its size by one.
+ *
+ * head: list head
+ *
+ * Note: list_empty() on last node return true after this
+ */
+static inline void list_pop_back(struct list_head *head)
+{
+    struct list_head *last_node = list_last(head);
+    sys_list_del_node(last_node);
+    list_init_head(last_node);
+}
+
+
+
 
 
 #endif  //LIST_HEADER
