@@ -82,7 +82,8 @@ static inline void list_init_head(struct list_head *list)
  *
  * head: the list to test.
  *
- * ret: true if the container size is 0 false otherwise.
+ * ret: true  //if the container size is 0
+ * ret: false //otherwise.
  */
 static inline int list_empty(const struct list_head *head)
 {
@@ -136,6 +137,24 @@ static inline int list_is_last(const struct list_head *node,
 static inline int list_is_singular(const struct list_head *head)
 {
     return !list_empty(head) && (head->next->next == head);
+}
+
+
+
+/*
+ * list_size - Returns the number of elements in the list container.
+ *
+ * head: the list to test.
+ * ret:  the number of elements in the list
+ */
+static inline size_t list_size(const struct list_head *head)
+{
+    size_t size = 0;
+    const struct list_head *it;
+    for(it = (head)->next; it != (head); it = it->next)
+        size++;
+
+    return size;
 }
 
 
