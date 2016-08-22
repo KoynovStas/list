@@ -125,6 +125,21 @@ static inline int list_is_last(const struct list_head *node,
 
 
 
+/*
+ * list_is_singular - tests whether a list has just one node.
+ *
+ * head: the list to test.
+ *
+ * ret: true  //if the container size == 1
+ * ret: false //if the container size != 1
+ */
+static inline int list_is_singular(const struct list_head *head)
+{
+    return !list_empty(head) && (head->next->next == head);
+}
+
+
+
 
 
 #endif  //LIST_HEADER
