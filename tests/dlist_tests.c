@@ -634,6 +634,55 @@ int test_list_splice_front(struct test_info_t  *test_info)
 
 
 
+int test_list_splice_back(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_DLIST_HEAD(list1);
+    DECLARE_DLIST_HEAD(list2);
+
+    const size_t COUNT_NODES = 100;
+    size_t i;
+    struct tmp_data  nodes[COUNT_NODES];
+    struct tmp_data  *it;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        dlist_push_back(&nodes[i].list, &list1);
+    }
+
+    dlist_splice_back(&list1, &list2);
+
+
+    if( dlist_size(&list1) != 0 )
+        return TEST_BROKEN;
+
+    if( dlist_size(&list2) != COUNT_NODES )
+        return TEST_BROKEN;
+
+
+    i=0;
+    dlist_data_citer(it, &list2, struct tmp_data, list)
+    {
+        if(it->data != i)
+            return TEST_BROKEN;
+
+        i++;
+    }
+
+    //is back
+    if( list2.next != &nodes[0].list )
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -649,6 +698,7 @@ ptest_func tests[] =
     test_list_rotate_left,
     test_list_rotate_right,
     test_list_splice_front,
+    test_list_splice_back,
 };
 
 
