@@ -838,6 +838,47 @@ static inline struct dlist_head* dlist_min(struct dlist_head *first, struct dlis
 
 
 
+/*
+ * dlist_max - Return largest element in range
+ *
+ * Returns an iterator pointing to the element with the with the largest value
+ * in the range [first,last).
+ *
+ * An element is the largest if no other element does not compare less than it.
+ * If more than one element fulfills this condition,
+ * the iterator returned points to the first of such elements.
+ *
+ * first, last is Input iterators to the initial and final positions
+ * of the sequence to compare
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first:  the &dlist_head to use as a first element.
+ * last:   the &dlist_head to use as a last element.
+ * comp:   Binary function that accepts two elements in the range as arguments,
+ *         and returns a value convertible to bool. The value returned indicates
+ *         whether the element passed as first argument is considered less than the second.
+ *         The function shall not modify any of its arguments
+ */
+static inline struct dlist_head* dlist_max(struct dlist_head *first, struct dlist_head *last,
+                                           int (*comp) (const struct dlist_head *n1, const struct dlist_head *n2) )
+{
+    if(first==last)
+        return last;
+
+    struct dlist_head *largest = first;
+    struct dlist_head *it      = first;
+
+    while( (it = it->next) != last )
+        if(comp(largest, it))
+            largest=it;
+
+    return largest;
+}
+
+
+
 
 
 #endif  //DLIST_HEADER
