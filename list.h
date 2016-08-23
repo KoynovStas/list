@@ -768,6 +768,47 @@ static inline void list_splice_back(struct list_head *list,
 
 
 
+/*
+ * list_min - Return smallest element in range
+ *
+ * Returns an iterator pointing to the element with the smallest value
+ * in the range [first,last).
+ *
+ * An element is the smallest if no other element compares less than it.
+ * If more than one element fulfills this condition,
+ * the iterator returned points to the first of such elements.
+ *
+ * first, last is Input iterators to the initial and final positions
+ * of the sequence to compare
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first:  the &list_head to use as a loop cursor(iterator)
+ * last:   the &list_head to use as a last element.
+ * comp:   Binary function that accepts two elements in the range as arguments,
+ *         and returns a value convertible to bool. The value returned indicates
+ *         whether the element passed as first argument is considered less than the second.
+ *         The function shall not modify any of its arguments
+ */
+static inline struct list_head* list_min(struct list_head *first, struct list_head *last,
+                                         int (*comp) (const struct list_head *n1, const struct list_head *n2) )
+{
+    if(first==last)
+        return last;
+
+    struct list_head* smallest = first;
+    struct list_head* it       = first;
+
+    while( (it = it->next) != last )
+        if(comp(it, smallest))
+            smallest=it;
+
+    return smallest;
+}
+
+
+
 
 
 #endif  //LIST_HEADER
