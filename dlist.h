@@ -46,7 +46,7 @@
 
 
 /*
- * Simple Circular doubly linked lists implementation.
+ * Simple Circular doubly linked list implementation.
  *
  * Definitions and designations:
  *
@@ -121,7 +121,6 @@
  *
  *  //Get Data from node
  *  dlist_data            -     O(1)
- *  dlist_data_or_null    -     O(1)
  *  dlist_first_data      -     O(1)
  *  dlist_last_data       -     O(1)
  *

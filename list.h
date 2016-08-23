@@ -46,7 +46,7 @@
 
 
 /*
- * Simple Circular linked lists implementation.
+ * Simple Circular linked list implementation.
  *
  * Definitions and designations:
  *
@@ -120,9 +120,8 @@
  *
  *  //Get Data from node
  *  list_data            -     O(1)
- *  list_data_or_null    -     O(1)
  *  list_first_data      -     O(1)
- *  list_last_data       -     O(1)
+ *  list_last_data       -     O(n)
  *
  *  //Iterator
  *  list_citer           -     O(n)
