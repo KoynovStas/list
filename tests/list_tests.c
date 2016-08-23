@@ -1016,6 +1016,64 @@ int test_list_for_each(struct test_info_t  *test_info)
 
 
 
+int comp_less(const struct list_head *n1,const struct list_head *n2)
+{
+    struct tmp_data *d1 = list_data(n1, struct tmp_data, list);
+    struct tmp_data *d2 = list_data(n2, struct tmp_data, list);
+
+    return d1->data < d2->data;
+}
+
+
+int test_list_min(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_LIST_HEAD(tmp_list);
+
+    const size_t COUNT_NODES = 100;
+    size_t i;
+    struct tmp_data  nodes[COUNT_NODES];
+    struct tmp_data  *tmp_data;
+    struct list_head *min;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        list_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    min = list_min(tmp_list.next, &tmp_list, comp_less);
+    tmp_data = list_data(min, struct tmp_data, list);
+
+    if(tmp_data->data != 0)
+        return TEST_BROKEN;
+
+
+    list_init_head(&tmp_list);  //clear
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = -i;
+        list_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    min = list_min(tmp_list.next, &tmp_list, comp_less);
+    tmp_data = list_data(min, struct tmp_data, list);
+
+    if(tmp_data->data != -(COUNT_NODES-1))
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -1046,7 +1104,8 @@ ptest_func tests[] =
     test_list_data_iter,
 
     //Algorithm
-    test_list_for_each
+    test_list_for_each,
+    test_list_min,
 };
 
 
