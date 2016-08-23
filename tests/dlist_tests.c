@@ -1152,7 +1152,6 @@ int test_list_for_each(struct test_info_t  *test_info)
     size_t i;
     struct tmp_data  nodes[COUNT_NODES];
     struct tmp_data  *it_data;
-    struct dlist_head *it;
 
 
     for(i=0; i < COUNT_NODES; i++)
@@ -1162,8 +1161,7 @@ int test_list_for_each(struct test_info_t  *test_info)
     }
 
 
-    it = tmp_list.next;
-    dlist_for_each(it, &tmp_list, node_inc);
+    dlist_for_each(tmp_list.next, &tmp_list, node_inc);
 
 
     i=0;

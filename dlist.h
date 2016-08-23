@@ -784,12 +784,16 @@ static inline void dlist_splice_back(struct dlist_head *list,
  * between first and last, including the element pointed by first
  * but not the element pointed by last.
  *
- * first:  the &dlist_head to use as a loop cursor(iterator)
+ * first:  the &dlist_head to use as a first element
  * last:   the &dlist_head to use as a last element.
  * fn:     Unary function that accepts an element in the range as argument.
  */
-#define dlist_for_each(first, last, fn)  \
-    for(; first != last; fn(first), first = first->next);
+static inline void dlist_for_each(struct dlist_head *first, struct dlist_head *last,
+                                  void (*fn) (struct dlist_head *node))
+{
+    struct dlist_head *it = first;
+    for(; it != last; fn(it), it = it->next);
+}
 
 
 
