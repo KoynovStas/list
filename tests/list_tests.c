@@ -1072,6 +1072,55 @@ int test_list_min(struct test_info_t  *test_info)
 
 
 
+int test_list_max(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_LIST_HEAD(tmp_list);
+
+    const size_t COUNT_NODES = 100;
+    size_t i;
+    struct tmp_data  nodes[COUNT_NODES];
+    struct tmp_data  *tmp_data;
+    struct list_head *max;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        list_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    max = list_max(tmp_list.next, &tmp_list, comp_less);
+    tmp_data = list_data(max, struct tmp_data, list);
+
+    if(tmp_data->data != COUNT_NODES-1)
+        return TEST_BROKEN;
+
+
+    list_init_head(&tmp_list);  //clear
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = -i;
+        list_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    max = list_max(tmp_list.next, &tmp_list, comp_less);
+    tmp_data = list_data(max, struct tmp_data, list);
+
+    if(tmp_data->data != 0)
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -1104,6 +1153,7 @@ ptest_func tests[] =
     //Algorithm
     test_list_for_each,
     test_list_min,
+    test_list_max,
 };
 
 
