@@ -759,12 +759,16 @@ static inline void list_splice_back(struct list_head *list,
  * between first and last, including the element pointed by first
  * but not the element pointed by last.
  *
- * first:  the &list_head to use as a loop cursor(iterator)
+ * first:  the &list_head to use as a first element
  * last:   the &list_head to use as a last element.
  * fn:     Unary function that accepts an element in the range as argument.
  */
-#define list_for_each(first, last, fn)  \
-    for(; first != last; fn(first), first = first->next);
+static inline void list_for_each(struct list_head *first, struct list_head *last,
+                                 void (*fn) (struct list_head *node))
+{
+    struct list_head *it = first;
+    for(; it != last; fn(it), it = it->next);
+}
 
 
 
@@ -797,8 +801,8 @@ static inline struct list_head* list_min(struct list_head *first, struct list_he
     if(first==last)
         return last;
 
-    struct list_head* smallest = first;
-    struct list_head* it       = first;
+    struct list_head *smallest = first;
+    struct list_head *it       = first;
 
     while( (it = it->next) != last )
         if(comp(it, smallest))
