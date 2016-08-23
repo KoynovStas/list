@@ -132,6 +132,8 @@
  *
  *  //Algorithm
  *  list_for_each        -     O(n)
+ *  list_min             -     O(n)
+ *  list_max             -     O(n)
  */
 
 

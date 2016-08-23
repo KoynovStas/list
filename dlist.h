@@ -137,6 +137,8 @@
  *
  *  //Algorithm
  *  dlist_for_each        -     O(n)
+ *  dlist_min             -     O(n)
+ *  dlist_max             -     O(n)
  */
 
 
