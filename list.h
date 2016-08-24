@@ -893,6 +893,45 @@ static inline struct list_head* list_find(struct list_head *first, struct list_h
 
 
 
+/*
+ * list_find2 - Find element in range
+ *
+ * Returns an iterator to the first element in the range [first,last)
+ * for which pred returns true.
+ * If no such element is found, the function returns last.
+ *
+ * first, last is Input iterators to the initial and final positions
+ * of the sequence to find
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first: the &list_head to use as a loop cursor(iterator)
+ * last:  the &list_head to use as a last element.
+ * pred:  Binary function that accepts an element in the range as argument
+ *        and returns a value convertible to bool.
+ *        The value returned indicates whether the element is considered a match
+ *        in the context of this function.
+ *        The function shall not modify its argument.
+ *        This can either be a function pointer or a function object.
+ * data:  Pointer to user data for pred function.
+ */
+static inline struct list_head* list_find2(struct list_head *first, struct list_head *last,
+                                           int (*pred) (const struct list_head *node, void *data), void *data)
+{
+    while( first != last)
+    {
+        if( pred(first, data) )
+            return first;
+
+        first = first->next;
+    }
+
+    return last;
+}
+
+
+
 
 
 #endif  //LIST_HEADER
