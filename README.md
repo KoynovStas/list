@@ -241,6 +241,8 @@ func                 | list.h |  dlist.h |
 list_for_each        |  O(n)  |   O(n)   |
 list_min             |  O(n)  |   O(n)   |
 list_max             |  O(n)  |   O(n)   |
+list_find            |  O(n)  |   O(n)   |
+list_find2           |  O(n)  |   O(n)   |
 
 
 
