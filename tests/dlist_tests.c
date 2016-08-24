@@ -1286,6 +1286,45 @@ int test_dlist_max(struct test_info_t  *test_info)
 
 
 
+int pred_50(const struct dlist_head *it)
+{
+    struct tmp_data *data = dlist_data(it, struct tmp_data, list);
+
+    return data->data == 50;
+}
+
+
+int test_list_find(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_DLIST_HEAD(tmp_list);
+
+    const size_t COUNT_NODES = 100;
+    size_t i;
+    struct tmp_data   nodes[COUNT_NODES];
+    struct dlist_head *f;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        dlist_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    f = dlist_find(tmp_list.next, &tmp_list, pred_50);
+
+    if( f != &nodes[50].list )
+        return TEST_BROKEN;
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -1323,6 +1362,7 @@ ptest_func tests[] =
     test_list_for_each,
     test_dlist_min,
     test_dlist_max,
+    test_list_find,
 };
 
 
