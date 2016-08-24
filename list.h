@@ -133,6 +133,8 @@
  *  list_for_each        -     O(n)
  *  list_min             -     O(n)
  *  list_max             -     O(n)
+ *  list_find            -     O(n)
+ *  list_find2           -     O(n)
  */
 
 
@@ -880,7 +882,7 @@ static inline struct list_head* list_max(struct list_head *first, struct list_he
 static inline struct list_head* list_find(struct list_head *first, struct list_head *last,
                                           int (*pred) (const struct list_head *node) )
 {
-    while( first != last)
+    while( first != last )
     {
         if( pred(first) )
             return first;
@@ -919,7 +921,7 @@ static inline struct list_head* list_find(struct list_head *first, struct list_h
 static inline struct list_head* list_find2(struct list_head *first, struct list_head *last,
                                            int (*pred) (const struct list_head *node, void *data), void *data)
 {
-    while( first != last)
+    while( first != last )
     {
         if( pred(first, data) )
             return first;

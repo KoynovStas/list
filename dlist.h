@@ -138,6 +138,8 @@
  *  dlist_for_each        -     O(n)
  *  dlist_min             -     O(n)
  *  dlist_max             -     O(n)
+ *  dlist_find            -     O(n)
+ *  dlist_find2           -     O(n)
  */
 
 
@@ -905,7 +907,7 @@ static inline struct dlist_head* dlist_max(struct dlist_head *first, struct dlis
 static inline struct dlist_head* dlist_find(struct dlist_head *first, struct dlist_head *last,
                                             int (*pred) (const struct dlist_head *node) )
 {
-    while( first != last)
+    while( first != last )
     {
         if( pred(first) )
             return first;
@@ -944,7 +946,7 @@ static inline struct dlist_head* dlist_find(struct dlist_head *first, struct dli
 static inline struct dlist_head* dlist_find2(struct dlist_head *first, struct dlist_head *last,
                                              int (*pred) (const struct dlist_head *node, void *data), void *data)
 {
-    while( first != last)
+    while( first != last )
     {
         if( pred(first, data) )
             return first;
