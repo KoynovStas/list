@@ -1325,6 +1325,51 @@ int test_list_find(struct test_info_t  *test_info)
 
 
 
+int pred_data(const struct dlist_head *it, void *user_data)
+{
+    struct tmp_data *data = dlist_data(it, struct tmp_data, list);
+
+    int *user_int = (int *)user_data;
+
+    return data->data == *user_int;
+}
+
+
+int test_list_find2(struct test_info_t  *test_info)
+{
+
+    TEST_INIT;
+
+    DECLARE_DLIST_HEAD(tmp_list);
+
+    const size_t COUNT_NODES = 100;
+    size_t i;
+    struct tmp_data   nodes[COUNT_NODES];
+    struct dlist_head *f;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        dlist_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        f = dlist_find2(tmp_list.next, &tmp_list, pred_data, &i);
+
+        if( f != &nodes[i].list )
+            return TEST_BROKEN;
+    }
+
+
+    return TEST_PASSED;
+}
+
+
+
 ptest_func tests[] =
 {
     test_list_empty,
@@ -1363,6 +1408,7 @@ ptest_func tests[] =
     test_dlist_min,
     test_dlist_max,
     test_list_find,
+    test_list_find2,
 };
 
 
