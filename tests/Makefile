@@ -1,7 +1,7 @@
-CFLAGS += -O2  -s  -Wall
+CFLAGS += -std=c99 -O2  -s  -Wall -pedantic
 CFLAGS += -D__USE_MINGW_ANSI_STDIO=1  #-DWITHOUT_CONSOLE_COLOR
 CFLAGS += -I..
-GCC     =  gcc
+GCC     =  gcc #clang-3.5
 
 
 
