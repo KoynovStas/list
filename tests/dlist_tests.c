@@ -19,12 +19,17 @@ struct tmp_data
 
 
 
+#define DECLARE_TMP_DATA(name) \
+    struct tmp_data name = { {NULL, NULL}, 0}
+
+
+
 
 
 TEST(test_list_empty)
 {
     DECLARE_DLIST_HEAD(tmp_list);
-    struct tmp_data d1;
+    DECLARE_TMP_DATA(d1);
 
 
     TEST_ASSERT(dlist_empty(&tmp_list));     //list must be empty
@@ -44,7 +49,10 @@ TEST(test_list_is_first)
     DECLARE_DLIST_HEAD(tmp_list);
     DECLARE_DLIST_HEAD(tmp_list2);
 
-    struct tmp_data d1, d2, d3;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
+
 
     dlist_push_front(&d1.list, &tmp_list);              //now d1 is first
 
@@ -72,7 +80,9 @@ TEST(test_list_is_last)
     DECLARE_DLIST_HEAD(tmp_list);
     DECLARE_DLIST_HEAD(tmp_list2);
 
-    struct tmp_data d1, d2, d3;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
 
 
     dlist_push_front(&d1.list, &tmp_list);              //now d1 is first
@@ -101,7 +111,8 @@ TEST(test_list_is_singular)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1, d2;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
 
 
     TEST_ASSERT(!dlist_is_singular(&tmp_list));     //list must be empty (not singular)
@@ -126,7 +137,9 @@ TEST(test_list_size)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1, d2, d3;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
 
 
     //add
@@ -167,7 +180,9 @@ TEST(test_list_pop_front)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1, d2, d3;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
 
 
     //add
@@ -203,7 +218,9 @@ TEST(test_list_pop_back)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1, d2, d3;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
 
 
     //add
@@ -239,7 +256,8 @@ TEST(test_list_replace_init)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1, d2;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
 
 
     //add
@@ -267,7 +285,8 @@ TEST(test_list_move_to_front)
     DECLARE_DLIST_HEAD(tmp_list1);
     DECLARE_DLIST_HEAD(tmp_list2);
 
-    struct tmp_data d1, d2;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
 
 
     //add
@@ -295,7 +314,8 @@ TEST(test_list_move_to_back)
     DECLARE_DLIST_HEAD(tmp_list1);
     DECLARE_DLIST_HEAD(tmp_list2);
 
-    struct tmp_data d1, d2;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
 
 
     //add
@@ -322,7 +342,10 @@ TEST(test_list_rotate_left)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1, d2, d3, d4;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
+    DECLARE_TMP_DATA(d4);
 
 
     //add
@@ -366,7 +389,10 @@ TEST(test_list_rotate_right)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1, d2, d3, d4;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
+    DECLARE_TMP_DATA(d4);
 
 
     //add
@@ -492,7 +518,7 @@ TEST(test_list_splice_back)
 
 TEST(test_list_data)
 {
-    struct tmp_data d1;
+    DECLARE_TMP_DATA(d1);
 
     TEST_ASSERT( dlist_data(&d1.list, struct tmp_data, list) == &d1 );
 
@@ -505,7 +531,7 @@ TEST(test_list_data_or_null)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1;
+    DECLARE_TMP_DATA(d1);
 
     dlist_init_head(&d1.list);
 
@@ -526,7 +552,8 @@ TEST(test_list_first_data)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1, d2;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
 
 
     dlist_push_front(&d1.list, &tmp_list);
@@ -549,7 +576,8 @@ TEST(test_list_last_data)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    struct tmp_data d1, d2;
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
 
 
     dlist_push_back(&d1.list, &tmp_list);
@@ -870,6 +898,7 @@ void node_inc(struct dlist_head *it)
 
     data->data++;
 }
+
 
 
 TEST(test_list_for_each)
