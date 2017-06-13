@@ -6,9 +6,6 @@
 
 It is implementation a very simple **embedded** list on C.
 
->Embedded list?
->>Yes see next
-
 
 
 ### Standart linked list on C:
@@ -90,7 +87,6 @@ struct user_type
 
 
 
-<br/>
 ## [list.h](./list.h) - Embedded circular linked list implementation on C
 
 **empty list:**
@@ -138,7 +134,6 @@ use the function: **list_data**
 
 
 
-<br/>
 ## [dlist.h](./dlist.h) - Embedded circular doubly linked list implementation on C
 
 **empty list:**
@@ -186,7 +181,6 @@ use the function: **dlist_data**
 
 
 
-<br/>
 ## Algorithmic complexity
 
 func                 |  list.h | dlist.h |
@@ -246,7 +240,6 @@ list_find2           |  O(n)  |   O(n)   |
 
 
 
-<br/>
 ## License
 
 [BSD 3-Clause License](./LICENSE).
