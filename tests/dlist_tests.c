@@ -437,8 +437,8 @@ TEST(test_list_splice_front)
     DECLARE_DLIST_HEAD(list1);
     DECLARE_DLIST_HEAD(list2);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data  nodes[COUNT_NODES];
     struct tmp_data  *it;
 
@@ -459,7 +459,7 @@ TEST(test_list_splice_front)
     i=0;
     dlist_data_citer(it, &list2, struct tmp_data, list)
     {
-        TEST_ASSERT(it->data == i);
+        TEST_ASSERT(it->data == (int)i);
         i++;
     }
 
@@ -477,8 +477,8 @@ TEST(test_list_splice_back)
     DECLARE_DLIST_HEAD(list1);
     DECLARE_DLIST_HEAD(list2);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data  nodes[COUNT_NODES];
     struct tmp_data  *it;
 
@@ -499,7 +499,7 @@ TEST(test_list_splice_back)
     i=0;
     dlist_data_citer(it, &list2, struct tmp_data, list)
     {
-        TEST_ASSERT(it->data == i);
+        TEST_ASSERT(it->data == (int)i);
         i++;
     }
 
@@ -604,8 +604,8 @@ TEST(test_list_citer)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data nodes[COUNT_NODES];
     struct dlist_head *it;
 
@@ -631,8 +631,8 @@ TEST(test_list_criter)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data nodes[COUNT_NODES];
     struct dlist_head *it;
 
@@ -658,8 +658,8 @@ TEST(test_list_iter)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data nodes[COUNT_NODES];
     struct dlist_head *it;
     struct dlist_head *tmp_it;
@@ -701,8 +701,8 @@ TEST(test_list_riter)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data nodes[COUNT_NODES];
     struct dlist_head *it;
     struct dlist_head *tmp_it;
@@ -743,8 +743,8 @@ TEST(test_list_data_citer)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data nodes[COUNT_NODES];
     struct tmp_data *it;
 
@@ -775,8 +775,8 @@ TEST(test_list_data_criter)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data nodes[COUNT_NODES];
     struct tmp_data *it;
 
@@ -806,8 +806,8 @@ TEST(test_list_data_iter)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data  nodes[COUNT_NODES];
     struct tmp_data  *it;
     struct dlist_head *tmp_it;
@@ -849,8 +849,8 @@ TEST(test_list_data_riter)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data  nodes[COUNT_NODES];
     struct tmp_data  *it;
     struct dlist_head *tmp_it;
@@ -905,8 +905,8 @@ TEST(test_list_for_each)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data  nodes[COUNT_NODES];
     struct tmp_data  *it_data;
 
@@ -948,8 +948,8 @@ TEST(test_dlist_min)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data  nodes[COUNT_NODES];
     struct tmp_data  *tmp_data;
     struct dlist_head *min;
@@ -992,8 +992,8 @@ TEST(test_dlist_max)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data  nodes[COUNT_NODES];
     struct tmp_data  *tmp_data;
     struct dlist_head *max;
@@ -1045,8 +1045,8 @@ TEST(test_list_find)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data   nodes[COUNT_NODES];
     struct dlist_head *f;
 
@@ -1083,8 +1083,8 @@ TEST(test_list_find2)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
-    const size_t COUNT_NODES = 100;
-    size_t i;
+    const int COUNT_NODES = 100;
+    int i;
     struct tmp_data   nodes[COUNT_NODES];
     struct dlist_head *f;
 
