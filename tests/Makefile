@@ -1,8 +1,7 @@
-INCLUDE_DIR  = ../
-
-CFLAGS      += -I. -I$(INCLUDE_DIR)
-CFLAGS      += -O2 -s -Wall
-GCC          =  gcc
+CFLAGS += -O2  -s  -Wall
+CFLAGS += -D__USE_MINGW_ANSI_STDIO=1  #-DWITHOUT_CONSOLE_COLOR
+CFLAGS += -I..
+GCC     =  gcc
 
 
 
@@ -29,17 +28,11 @@ clean:
 
 
 
-
-
 .PHONY: $(TESTS)
 $(TESTS):
-	$(GCC)  $@.c unit_tests.c -o $@  $(CFLAGS)
+	$(GCC)  $@.c -o $@  $(CFLAGS)
 	@echo "  ---- Compiled $@ ----"
-	@echo ""
-	@echo "  ---- Start tests ----"
-	@echo ""
-	@./$@
-	@echo ""
+	-@./$@
 
 
 
