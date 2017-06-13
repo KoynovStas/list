@@ -603,7 +603,7 @@ static inline void list_splice_back(struct list_head *list,
  * member: the name of the node(list_head) within the struct of data.
  */
 #define list_data(node, type, member) \
-    ({  (type *)( (const char *)node - offsetof(type, member) );  })
+    (type *)( (const char *)node - offsetof(type, member) )
 
 
 

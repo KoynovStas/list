@@ -568,7 +568,7 @@ static inline void dlist_splice_back(struct dlist_head *list,
  * member: the name of the node(dlist_head) within the struct of data.
  */
 #define dlist_data(node, type, member) \
-    ({  (type *)( (const char *)node - offsetof(type, member) );  })
+     (type *)( (const char *)node - offsetof(type, member) )
 
 
 
