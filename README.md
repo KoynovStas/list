@@ -13,8 +13,8 @@ It is implementation a very simple **embedded** list on C.
 ```C++
 struct node
 {
-	void *data;           //or user_type data, or user_type *data
-	struct node *next;
+    void *data;           //or user_type data, or user_type *data
+    struct node *next;
 };
 ```
 More details see in [Linked list Wiki](https://en.wikipedia.org/wiki/Linked_list)
@@ -53,8 +53,8 @@ struct user_type
 ```C++
 struct node
 {
-	void *data;           //or user_type data, or user_type *data
-	struct node *next;
+    void *data;           //or user_type data, or user_type *data
+    struct node *next;
     struct node *prev;
 };
 ```
