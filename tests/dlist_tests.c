@@ -143,33 +143,33 @@ TEST(test_list_size)
 
 
     //add
-    TEST_ASSERT(dlist_size(&tmp_list) == 0);   //size == 0 (list is empty)
+    TEST_ASSERT(dlist_size(&tmp_list) == 0);  //size == 0 (list is empty)
 
+    dlist_push_front(&d1.list, &tmp_list);    //now d1 is first
+    TEST_ASSERT(dlist_size(&tmp_list) == 1);  //size == 1 (d1)
+    TEST_ASSERT(!dlist_empty(&d1.list));      //list dont must be empty
 
-    dlist_push_front(&d1.list, &tmp_list);     //now d1 is first
-    TEST_ASSERT(dlist_size(&tmp_list) == 1);   //size == 1 (d1)
+    dlist_push_back(&d2.list, &tmp_list);     //now d2 is last
+    TEST_ASSERT(dlist_size(&tmp_list) == 2);  //size == 2 (d1,d2)
+    TEST_ASSERT(!dlist_empty(&d2.list));      //list dont must be empty
 
-
-    dlist_push_back(&d2.list, &tmp_list);      //now d2 is last
-    TEST_ASSERT(dlist_size(&tmp_list) == 2);   //size == 2 (d1,d2)
-
-
-    dlist_push_back(&d3.list, &tmp_list);      //now d2 is last
-    TEST_ASSERT(dlist_size(&tmp_list) == 3);   //size == 3 (d1,d2, d3)
+    dlist_push_back(&d3.list, &tmp_list);     //now d3 is last
+    TEST_ASSERT(dlist_size(&tmp_list) == 3);  //size == 3 (d1,d2, d3)
+    TEST_ASSERT(!dlist_empty(&d3.list));      //list dont must be empty
 
 
     //delete
-    dlist_del(&d1.list);                       //now d1 is not in list
-    TEST_ASSERT(dlist_size(&tmp_list) == 2);   //size == 1 (d2,d3)
+    dlist_del(&d1.list);                     //now d1 is not in list
+    TEST_ASSERT(dlist_size(&tmp_list) == 2); //size == 2 (d2,d3)
+    TEST_ASSERT(dlist_empty(&d1.list));      //list must be empty
 
+    dlist_del(&d2.list);                     //now d2 is not in list
+    TEST_ASSERT(dlist_size(&tmp_list) == 1); //size == 1 (d3)
+    TEST_ASSERT(dlist_empty(&d2.list));      //list must be empty
 
-    dlist_del(&d2.list);                       //now d2 is not in list
-    TEST_ASSERT(dlist_size(&tmp_list) == 1);   //size == 2 (d3)
-
-
-    dlist_del(&d3.list);                       //now d3 is not in list
-    TEST_ASSERT(dlist_size(&tmp_list) == 0);   //size == 0 (list is empty)
-
+    dlist_del(&d3.list);                     //now d3 is not in list
+    TEST_ASSERT(dlist_size(&tmp_list) == 0); //size == 0 (list is empty)
+    TEST_ASSERT(dlist_empty(&d3.list));      //list must be empty
 
     TEST_PASS(NULL);
 }
