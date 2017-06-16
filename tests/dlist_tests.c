@@ -176,6 +176,46 @@ TEST(test_list_size)
 
 
 
+TEST(test_list_del)
+{
+    DECLARE_DLIST_HEAD(tmp_list);
+
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
+
+
+    //add
+    TEST_ASSERT(dlist_size(&tmp_list) == 0);  //size == 0 (list is empty)
+
+    dlist_push_front(&d1.list, &tmp_list);    //now d1 is first
+    dlist_push_back(&d2.list, &tmp_list);     //now d2 is last
+    dlist_push_back(&d3.list, &tmp_list);     //now d3 is last
+    TEST_ASSERT(dlist_size(&tmp_list) == 3);  //size == 3 (d1,d2, d3)
+
+
+    //delete
+    TEST_ASSERT(!dlist_empty(&d1.list));     //d1 in list
+    dlist_del(&d1.list);                     //now d1 is not in list
+    TEST_ASSERT(dlist_size(&tmp_list) == 2); //size == 2 (d2,d3)
+    TEST_ASSERT(dlist_empty(&d1.list));      //d1 is not in list
+
+
+    TEST_ASSERT(!dlist_empty(&d2.list));     //d2 in list
+    dlist_del(&d2.list);                     //now d2 is not in list
+    TEST_ASSERT(dlist_size(&tmp_list) == 1); //size == 1 (d3)
+    TEST_ASSERT(dlist_empty(&d2.list));      //d2 is not in list
+
+    TEST_ASSERT(!dlist_empty(&d3.list));     //d3 in list
+    dlist_del(&d3.list);                     //now d3 is not in list
+    TEST_ASSERT(dlist_size(&tmp_list) == 0); //size == 0 (list is empty)
+    TEST_ASSERT(dlist_empty(&d3.list));      //d3 is not in list
+
+    TEST_PASS(NULL);
+}
+
+
+
 TEST(test_list_pop_front)
 {
     DECLARE_DLIST_HEAD(tmp_list);
@@ -1117,6 +1157,7 @@ ptest_func tests[] =
     test_list_is_last,
     test_list_is_singular,
     test_list_size,
+    test_list_del,
     test_list_pop_front,
     test_list_pop_back,
     test_list_replace_init,
