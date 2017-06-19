@@ -984,7 +984,7 @@ int comp_less(const struct dlist_head *n1,const struct dlist_head *n2)
 
 
 
-TEST(test_dlist_min)
+TEST(test_list_min)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
@@ -1032,7 +1032,7 @@ TEST(test_dlist_min)
 
 
 
-TEST(test_dlist_max)
+TEST(test_list_max)
 {
     DECLARE_DLIST_HEAD(tmp_list);
 
@@ -1073,6 +1073,60 @@ TEST(test_dlist_max)
     tmp_data = dlist_data(max, struct tmp_data, list);
 
     TEST_ASSERT(tmp_data->data == 0);
+
+
+    TEST_PASS(NULL);
+}
+
+
+
+TEST(test_list_minmax)
+{
+    DECLARE_DLIST_HEAD(tmp_list);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data  nodes[COUNT_NODES];
+    struct tmp_data  *tmp_data;
+    struct dlist_head *res[2];
+
+
+    dlist_minmax(tmp_list.next, &tmp_list, comp_less, res);
+    TEST_ASSERT(res[0] == &tmp_list); //min == end iterator (list empty)
+    TEST_ASSERT(res[1] == &tmp_list); //max == end iterator (list empty)
+
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        dlist_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    dlist_minmax(tmp_list.next, &tmp_list, comp_less, res);
+    tmp_data = dlist_data(res[0], struct tmp_data, list);
+    TEST_ASSERT(tmp_data->data == 0);                       //min
+
+    tmp_data = dlist_data(res[1], struct tmp_data, list);
+    TEST_ASSERT(tmp_data->data == COUNT_NODES-1);           //max
+
+
+    dlist_init_head(&tmp_list);  //clear
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = -i;
+        dlist_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    dlist_minmax(tmp_list.next, &tmp_list, comp_less, res);
+    tmp_data = dlist_data(res[0], struct tmp_data, list);
+    TEST_ASSERT(tmp_data->data == -(COUNT_NODES-1));        //min
+
+    tmp_data = dlist_data(res[1], struct tmp_data, list);
+    TEST_ASSERT(tmp_data->data == 0);                       //max
 
 
     TEST_PASS(NULL);
@@ -1194,8 +1248,9 @@ ptest_func tests[] =
 
     //Algorithm
     test_list_for_each,
-    test_dlist_min,
-    test_dlist_max,
+    test_list_min,
+    test_list_max,
+    test_list_minmax,
     test_list_find,
     test_list_find2,
 };

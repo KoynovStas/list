@@ -137,6 +137,7 @@
  *  dlist_for_each        -     O(n)
  *  dlist_min             -     O(n)
  *  dlist_max             -     O(n)
+ *  dlist_minmax          -     O(n)
  *  dlist_find            -     O(n)
  *  dlist_find2           -     O(n)
  */
@@ -877,6 +878,61 @@ static inline struct dlist_head* dlist_max(struct dlist_head *first, struct dlis
             largest=it;
 
     return largest;
+}
+
+
+
+/*
+ * dlist_minmax - Return the smallest and largest element in the range [first, last).
+ *
+ * Returns array of an iterators pointing to the element:
+ * with the smallest value res[0] in the range [first,last).
+ * with the largest value  res[1] in the range [first,last).
+ *
+ * An element is the smallest if no other element compares less than it.
+ * If more than one element fulfills this condition,
+ * the iterator returned points to the first of such elements.
+ *
+ * An element is the largest if no other element does not compare less than it.
+ * If more than one element fulfills this condition,
+ * the iterator returned points to the first of such elements.
+ *
+ * first, last is Input iterators to the initial and final positions
+ * of the sequence to compare
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first:  the &dlist_head to use as a first element.
+ * last:   the &dlist_head to use as a last element.
+ * comp:   Binary function that accepts two elements in the range as arguments,
+ *         and returns a value convertible to bool. The value returned indicates
+ *         whether the element passed as first argument is considered less than the second.
+ *         The function shall not modify any of its arguments
+ * res:    res[0] - min
+ *         res[1] - max
+ */
+static inline void dlist_minmax(struct dlist_head *first, struct dlist_head *last,
+                               int (*comp) (const struct dlist_head *n1, const struct dlist_head *n2),
+                               struct dlist_head *res[2])
+{
+    res[0] = first;  //min
+    res[1] = first;  //max
+
+    if(first==last)
+        return;
+
+
+    struct dlist_head *it = first;
+
+    while( (it = it->next) != last )
+    {
+        if(comp(it, res[0]))
+            res[0]=it;
+
+        if(comp(res[1], it))
+            res[1]=it;
+    }
 }
 
 
