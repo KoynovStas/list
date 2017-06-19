@@ -837,6 +837,10 @@ TEST(test_list_min)
     struct list_head *min;
 
 
+    min = list_min(tmp_list.next, &tmp_list, comp_less);
+    TEST_ASSERT(min == &tmp_list); //min == end iterator (list empty)
+
+
     for(i=0; i < COUNT_NODES; i++)
     {
         nodes[i].data = i;
@@ -879,6 +883,10 @@ TEST(test_list_max)
     struct tmp_data  nodes[COUNT_NODES];
     struct tmp_data  *tmp_data;
     struct list_head *max;
+
+
+    max = list_max(tmp_list.next, &tmp_list, comp_less);
+    TEST_ASSERT(max == &tmp_list); //max == end iterator (list empty)
 
 
     for(i=0; i < COUNT_NODES; i++)
