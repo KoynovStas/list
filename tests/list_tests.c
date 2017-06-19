@@ -922,6 +922,60 @@ TEST(test_list_max)
 
 
 
+TEST(test_list_minmax)
+{
+    DECLARE_LIST_HEAD(tmp_list);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data  nodes[COUNT_NODES];
+    struct tmp_data  *tmp_data;
+    struct list_head *res[2];
+
+
+    list_minmax(tmp_list.next, &tmp_list, comp_less, res);
+    TEST_ASSERT(res[0] == &tmp_list); //min == end iterator (list empty)
+    TEST_ASSERT(res[1] == &tmp_list); //max == end iterator (list empty)
+
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        list_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    list_minmax(tmp_list.next, &tmp_list, comp_less, res);
+    tmp_data = list_data(res[0], struct tmp_data, list);
+    TEST_ASSERT(tmp_data->data == 0);                       //min
+
+    tmp_data = list_data(res[1], struct tmp_data, list);
+    TEST_ASSERT(tmp_data->data == COUNT_NODES-1);           //max
+
+
+    list_init_head(&tmp_list);  //clear
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = -i;
+        list_push_back(&nodes[i].list, &tmp_list);
+    }
+
+
+    list_minmax(tmp_list.next, &tmp_list, comp_less, res);
+    tmp_data = list_data(res[0], struct tmp_data, list);
+    TEST_ASSERT(tmp_data->data == -(COUNT_NODES-1));        //min
+
+    tmp_data = list_data(res[1], struct tmp_data, list);
+    TEST_ASSERT(tmp_data->data == 0);                       //max
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 int pred_50(const struct list_head *it)
 {
     struct tmp_data *data = list_data(it, struct tmp_data, list);
@@ -1033,6 +1087,7 @@ ptest_func tests[] =
     test_list_for_each,
     test_list_min,
     test_list_max,
+    test_list_minmax,
     test_list_find,
     test_list_find2,
 };

@@ -132,6 +132,7 @@
  *  list_for_each        -     O(n)
  *  list_min             -     O(n)
  *  list_max             -     O(n)
+ *  list_minmax          -     O(n)
  *  list_find            -     O(n)
  *  list_find2           -     O(n)
  */
@@ -818,7 +819,7 @@ static inline struct list_head* list_min(struct list_head *first, struct list_he
 /*
  * list_max - Return largest element in range
  *
- * Returns an iterator pointing to the element with the with the largest value
+ * Returns an iterator pointing to the element with the largest value
  * in the range [first,last).
  *
  * An element is the largest if no other element does not compare less than it.
@@ -852,6 +853,61 @@ static inline struct list_head* list_max(struct list_head *first, struct list_he
             largest=it;
 
     return largest;
+}
+
+
+
+/*
+ * list_minmax - Return the smallest and largest element in the range [first, last).
+ *
+ * Returns array of an iterators pointing to the element:
+ * with the smallest value res[0] in the range [first,last).
+ * with the largest value  res[1] in the range [first,last).
+ *
+ * An element is the smallest if no other element compares less than it.
+ * If more than one element fulfills this condition,
+ * the iterator returned points to the first of such elements.
+ *
+ * An element is the largest if no other element does not compare less than it.
+ * If more than one element fulfills this condition,
+ * the iterator returned points to the first of such elements.
+ *
+ * first, last is Input iterators to the initial and final positions
+ * of the sequence to compare
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first:  the &list_head to use as a first element.
+ * last:   the &list_head to use as a last element.
+ * comp:   Binary function that accepts two elements in the range as arguments,
+ *         and returns a value convertible to bool. The value returned indicates
+ *         whether the element passed as first argument is considered less than the second.
+ *         The function shall not modify any of its arguments
+ * res:    res[0] - min
+ *         res[1] - max
+ */
+static inline void list_minmax(struct list_head *first, struct list_head *last,
+                               int (*comp) (const struct list_head *n1, const struct list_head *n2),
+                               struct list_head *res[2])
+{
+    res[0] = first;  //min
+    res[1] = first;  //max
+
+    if(first==last)
+        return;
+
+
+    struct list_head *it = first;
+
+    while( (it = it->next) != last )
+    {
+        if(comp(it, res[0]))
+            res[0]=it;
+
+        if(comp(res[1], it))
+            res[1]=it;
+    }
 }
 
 
