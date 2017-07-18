@@ -583,7 +583,7 @@ static inline void dlist_splice_back(struct dlist_head *list,
  * Note it returns NULL if the list(node) is empty.
  */
 #define dlist_data_or_null(node, type, member) \
-    (!dlist_empty(node) ? dlist_data(node, type, member) : NULL)
+    (dlist_empty(node) ? NULL : dlist_data(node, type, member))
 
 
 
@@ -625,7 +625,7 @@ static inline void dlist_splice_back(struct dlist_head *list,
  * Note it returns NULL if the list(node) is empty.
  */
 #define dlist_first_data_or_null(head, type, member) \
-    (!dlist_empty(head) ? dlist_first_data(head, type, member) : NULL)
+    (dlist_empty(head) ? NULL : dlist_first_data(head, type, member))
 
 
 
@@ -639,7 +639,7 @@ static inline void dlist_splice_back(struct dlist_head *list,
  * Note it returns NULL if the list(node) is empty.
  */
 #define dlist_last_data_or_null(head, type, member) \
-    (!dlist_empty(head) ? dlist_last_data(head, type, member) : NULL)
+    (dlist_empty(head) ? NULL : dlist_last_data(head, type, member))
 
 
 
