@@ -117,6 +117,7 @@
  *  list_splice_front    -     O(n)
  *  list_splice_back     -     O(2n)
  *  list_reverse         -     O(n)
+ *  list_swap            -     O(3n)
  *
  *  //Get Data from node
  *  list_data            -     O(1)
@@ -619,6 +620,25 @@ static inline void list_reverse(struct list_head *head)
 
     last->next = head;         //the last node should point to the head
     head->next = first_node;   //now head point to the reverse list
+}
+
+
+
+/*
+ * list_swap - Exchanges the contents of the containers.
+ * Does not invoke any move, copy, or swap operations on individual elements.
+ *
+ */
+static inline void list_swap(struct list_head *head1, struct list_head *head2)
+{
+    if(head1 == head2)
+        return;
+
+    DECLARE_LIST_HEAD(tmp);
+
+    list_splice_front(head1, &tmp);
+    list_splice_front(head2, head1);
+    list_splice_front(&tmp, head2);
 }
 
 
