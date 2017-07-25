@@ -118,6 +118,7 @@
  *  dlist_splice_front    -     O(1)
  *  dlist_splice_back     -     O(1)
  *  dlist_reverse         -     O(n)
+ *  dlist_swap            -     O(1)
  *
  *  //Get Data from node
  *  dlist_data            -     O(1)
@@ -578,6 +579,24 @@ static inline void dlist_reverse(struct dlist_head *head)
     sys_dlist_splice(&tmp, head, head->next);
 }
 
+
+
+/*
+ * dlist_swap - Exchanges the contents of the containers.
+ * Does not invoke any move, copy, or swap operations on individual elements.
+ *
+ */
+static inline void dlist_swap(struct dlist_head *head1, struct dlist_head *head2)
+{
+    if(head1 == head2)
+        return;
+
+    DECLARE_DLIST_HEAD(tmp);
+
+    dlist_splice_front(head1, &tmp);
+    dlist_splice_front(head2, head1);
+    dlist_splice_front(&tmp, head2);
+}
 
 
 
