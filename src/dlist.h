@@ -117,6 +117,7 @@
  *  dlist_rotate_right    -     O(1)
  *  dlist_splice_front    -     O(1)
  *  dlist_splice_back     -     O(1)
+ *  dlist_reverse         -     O(n)
  *
  *  //Get Data from node
  *  dlist_data            -     O(1)
@@ -549,6 +550,32 @@ static inline void dlist_splice_back(struct dlist_head *list,
         sys_dlist_splice(list, head->prev, head);
         dlist_init_head(list);
     }
+}
+
+
+
+/*
+ * dlist_reverse - reverse the list
+ *
+ * head: the head of the list
+ *
+ * before:  [...] <-> [N] <-> [head] <-> [1] <-> [2] <-> [3] <-> [...]
+ * after:   [...] <-> [3] <-> [2] <-> [1] <-> [head] <-> [N] <-> [...]
+ */
+static inline void dlist_reverse(struct dlist_head *head)
+{
+    if( dlist_empty(head) || dlist_is_singular(head) )
+        return;
+
+    DECLARE_DLIST_HEAD(tmp);
+
+
+    while(head->next != head)
+    {
+        dlist_move_to_front(head->next, &tmp);
+    }
+
+    sys_dlist_splice(&tmp, head, head->next);
 }
 
 
