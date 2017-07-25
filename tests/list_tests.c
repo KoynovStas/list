@@ -247,6 +247,12 @@ TEST(test_list_pop_front)
     TEST_ASSERT(list_empty(&d1.list));
 
 
+    //list empty
+    list_pop_front(&tmp_list);
+    TEST_ASSERT(list_size(&tmp_list) == 0);          //size == 0 ()
+    TEST_ASSERT(list_empty(&tmp_list));
+
+
     TEST_PASS(NULL);
 }
 
@@ -283,6 +289,12 @@ TEST(test_list_pop_back)
     list_pop_back(&tmp_list);
     TEST_ASSERT(list_size(&tmp_list) == 0);           //size == 0 ()
     TEST_ASSERT(list_empty(&d3.list));
+
+
+    //list empty
+    list_pop_back(&tmp_list);
+    TEST_ASSERT(list_size(&tmp_list) == 0);           //size == 0 ()
+    TEST_ASSERT(list_empty(&tmp_list));
 
 
     TEST_PASS(NULL);
@@ -535,6 +547,46 @@ TEST(test_list_splice_back)
 
     //is back
     TEST_ASSERT( list2.next == &nodes[0].list );
+
+
+    TEST_PASS(NULL);
+}
+
+
+
+TEST(test_list_reverse)
+{
+    DECLARE_LIST_HEAD(tmp_list);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data nodes[COUNT_NODES];
+    struct list_head *it;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        list_push_back(&nodes[i].list, &tmp_list);
+    }
+
+    TEST_ASSERT( list_size(&tmp_list) == COUNT_NODES );
+
+    i=0;
+    list_citer(it, &tmp_list)
+    {
+        TEST_ASSERT( it == &nodes[i].list );  //test nodes
+        i++;
+    }
+
+    list_reverse(&tmp_list);
+    TEST_ASSERT( list_size(&tmp_list) == COUNT_NODES );
+
+    i=COUNT_NODES-1;
+    list_citer(it, &tmp_list)
+    {
+        TEST_ASSERT( it == &nodes[i].list );  //test nodes
+        i--;
+    }
 
 
     TEST_PASS(NULL);
@@ -1070,6 +1122,7 @@ ptest_func tests[] =
     test_list_rotate_right,
     test_list_splice_front,
     test_list_splice_back,
+    test_list_reverse,
 
     //Get Data from node
     test_list_data,
