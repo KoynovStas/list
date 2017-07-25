@@ -1,6 +1,6 @@
 CFLAGS += -std=c99 -O2  -s  -Wall -pedantic
 CFLAGS += -D__USE_MINGW_ANSI_STDIO=1  #-DWITHOUT_CONSOLE_COLOR
-CFLAGS += -I..
+CFLAGS += -I../src
 GCC     =  gcc #clang-3.5
 
 
@@ -20,6 +20,7 @@ all: clean  $(TESTS)
 
 
 
+
 .PHONY: clean
 clean:
 	-@rm -f *.o
@@ -32,7 +33,7 @@ clean:
 $(TESTS):
 	$(GCC)  $@.c -o $@  $(CFLAGS)
 	@echo "  ---- Compiled $@ ----"
-	-@./$@
+	@./$@
 
 
 
