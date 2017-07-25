@@ -604,6 +604,68 @@ TEST(test_list_reverse)
 
 
 
+TEST(test_list_swap)
+{
+    DECLARE_DLIST_HEAD(tmp_list1);
+    DECLARE_DLIST_HEAD(tmp_list2);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data nodes[COUNT_NODES];
+    struct dlist_head *it;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        dlist_push_back(&nodes[i].list, &tmp_list1);
+    }
+
+    TEST_ASSERT( dlist_size(&tmp_list1) == COUNT_NODES );
+    TEST_ASSERT( dlist_size(&tmp_list2) == 0 );
+
+    i=0;
+    dlist_citer(it, &tmp_list1)
+    {
+        TEST_ASSERT( it == &nodes[i].list );  //test nodes
+        i++;
+    }
+
+
+    //swap self
+    dlist_swap(&tmp_list1, &tmp_list1);
+    TEST_ASSERT( dlist_size(&tmp_list1) == COUNT_NODES );
+
+    i=0;
+    dlist_citer(it, &tmp_list1)
+    {
+        TEST_ASSERT( it == &nodes[i].list );  //test nodes
+        i++;
+    }
+
+
+
+    dlist_swap(&tmp_list1, &tmp_list2);
+    TEST_ASSERT( dlist_size(&tmp_list1) == 0 );
+    TEST_ASSERT( dlist_size(&tmp_list2) == COUNT_NODES );
+
+
+    i=0;
+    dlist_citer(it, &tmp_list2)
+    {
+        TEST_ASSERT( it == &nodes[i].list );  //test nodes
+        i++;
+    }
+
+
+    dlist_swap(&tmp_list1, &tmp_list1);
+    TEST_ASSERT( dlist_size(&tmp_list1) == 0 );
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 //---------------- Get Data from node ----------------
 
 
@@ -1282,6 +1344,7 @@ ptest_func tests[] =
     test_list_splice_front,
     test_list_splice_back,
     test_list_reverse,
+    test_list_swap,
 
     //Get Data from node
     test_list_data,
