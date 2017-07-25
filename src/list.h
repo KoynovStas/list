@@ -116,6 +116,7 @@
  *  list_rotate_right    -     O(2n)
  *  list_splice_front    -     O(n)
  *  list_splice_back     -     O(2n)
+ *  list_reverse         -     O(n)
  *
  *  //Get Data from node
  *  list_data            -     O(1)
@@ -584,6 +585,40 @@ static inline void list_splice_back(struct list_head *list,
         sys_list_splice(list, list_prev(head), head);
         list_init_head(list);
     }
+}
+
+
+
+/*
+ * list_reverse - reverse the list
+ *
+ * head: the head of the list
+ *
+ * before:  [...] -> [N] -> [head] -> [1] -> [2] -> [3] -> [...]
+ * after:   [...] -> [3] -> [2] -> [1] -> [head] -> [N] -> [...]
+ */
+static inline void list_reverse(struct list_head *head)
+{
+    if( list_empty(head) || list_is_singular(head) )
+        return;
+
+
+    DECLARE_LIST_HEAD(tmp);
+    struct list_head *last, *first_node;
+
+    last = head->next; //first node will be last
+
+    while(head->next != head)
+    {
+        //extract first node from list
+        first_node = head->next;
+        head->next = first_node->next;
+
+        list_push_front(first_node, &tmp);
+    }
+
+    last->next = head;         //the last node should point to the head
+    head->next = first_node;   //now head point to the reverse list
 }
 
 
