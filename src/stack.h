@@ -43,5 +43,46 @@
 
 
 
+/*
+ * The stack is a container adapter that gives the programmer
+ * the functionality of a stack - specifically, a FILO (first-in, last-out).
+ *
+ * This adapter uses list like inner container.
+ *
+ *
+ *  Algorithmic complexity:
+ *
+ *  stack_size            -     O(1)
+ *  stack_empty           -     O(1)
+ */
+
+
+
+
+
+struct stack_t
+{
+    struct list_head head;
+    size_t           size;
+};
+
+
+
+
+
+#define DECLARE_STACK(name) \
+    struct stack_t name = { { &name.head }, 0 }
+
+
+
+static inline void stack_init(struct stack_t *stack)
+{
+    stack->head.next = &stack->head;
+    stack->size      = 0;
+}
+
+
+
+
 
 #endif // STACK_H
