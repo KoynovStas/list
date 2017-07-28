@@ -8,8 +8,9 @@ GCC     =  gcc #clang-3.5
 
 
 # list of tests for build
-TESTS  = list_tests \
-         dlist_tests
+TESTS  = list_tests  \
+         dlist_tests \
+         stack_tests
 
 
 
