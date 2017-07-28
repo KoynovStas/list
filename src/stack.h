@@ -120,6 +120,24 @@ static inline void stack_push(struct list_head* data, struct stack_t *stack)
 
 
 
+/*
+ * stack_pop - Removes the top element from the stack.
+ *
+ * stack: the stack to work.
+ *
+ * ret: none
+ */
+static inline void stack_pop(struct stack_t *stack)
+{
+    if( !list_empty(&stack->head) )
+    {
+        list_pop_front(&stack->head);
+        stack->size--;
+    }
+}
+
+
+
 
 
 #endif // STACK_H
