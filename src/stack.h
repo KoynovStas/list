@@ -104,6 +104,22 @@ static inline struct list_head* stack_top(struct stack_t *stack)
 
 
 
+/*
+ * stack_push - Pushes the given element (data) to the top of the stack.
+ *
+ * stack: the stack to work.
+ * data:  the data for pushes.
+ *
+ * ret: none
+ */
+static inline void stack_push(struct list_head* data, struct stack_t *stack)
+{
+    list_push_front(data, &stack->head);
+    stack->size++;
+}
+
+
+
 
 
 #endif // STACK_H
