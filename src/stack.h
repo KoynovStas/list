@@ -83,6 +83,27 @@ static inline void stack_init(struct stack_t *stack)
 
 
 
+/*
+ * stack_top - Returns pointer to the top element in the stack.
+ * This is the most recently pushed element.
+ * This element will be removed on a call to pop().
+ * If stack is empty returns NULL.
+ *
+ * stack: the stack to work.
+ *
+ * ret: ptr   //pointer to the top element in the stack
+ * ret: NULL  //if stack is empty.
+ */
+static inline struct list_head* stack_top(struct stack_t *stack)
+{
+    if( stack->size )
+        return stack->head.next;
+    else
+        return NULL;
+}
+
+
+
 
 
 #endif // STACK_H
