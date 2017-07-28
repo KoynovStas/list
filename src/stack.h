@@ -52,8 +52,10 @@
  *
  *  Algorithmic complexity:
  *
- *  stack_size            -     O(1)
- *  stack_empty           -     O(1)
+ *  stack_size    -   O(1)
+ *  stack_top     -   O(1)
+ *  stack_push    -   O(1)
+ *  stack_pop     -   O(1)
  */
 
 
