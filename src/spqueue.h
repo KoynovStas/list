@@ -110,6 +110,29 @@ static inline void spqueue_item_swap(struct spqueue_t *pqueue, size_t i, size_t 
 
 
 
+static inline void spqueue_sift_down(struct spqueue_t *pqueue, size_t i)
+{
+
+    while(PQUEUE_LEFT(i) < pqueue->size)
+    {
+        size_t left  = PQUEUE_LEFT(i);
+        size_t right = PQUEUE_RIGHT(i);
+        size_t j     = left;
+
+        if( (right < pqueue->size) && pqueue->cmp_func(pqueue->items[right], pqueue->items[left]) )
+            j = right;
+
+        if( pqueue->cmp_func(pqueue->items[i], pqueue->items[j]) )
+            break;
+
+        spqueue_item_swap(pqueue, i, j);
+
+        i = j;
+    }
+}
+
+
+
 
 
 #endif // SPQUEUE_H
