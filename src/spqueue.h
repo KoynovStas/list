@@ -75,6 +75,12 @@ struct spqueue_t
 
 
 
+// Helpful Macros
+#define PQUEUE_LEFT(i)   ((i<<1)+1)
+#define PQUEUE_RIGHT(i)  ((i<<1)+2)
+#define PQUEUE_PARENT(i) ((i-1)>>1)
+
+
 
 
 #endif // SPQUEUE_H
