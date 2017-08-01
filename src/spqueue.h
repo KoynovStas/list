@@ -187,6 +187,24 @@ static inline void* spqueue_top(struct spqueue_t *pqueue)
 
 
 
+/*
+ * spqueue_pop - Removes the top element from the priority queue.
+ *
+ * pqueue: the priority queue for work.
+ */
+static inline void spqueue_pop(struct spqueue_t *pqueue)
+{
+    if(pqueue->size == 0)
+        return;
+
+    pqueue->size--;
+    pqueue->items[0] = pqueue->items[pqueue->size];
+
+    spqueue_sift_down(pqueue, 0);
+}
+
+
+
 
 
 #endif // SPQUEUE_H
