@@ -138,6 +138,7 @@ static inline int pqueue_push(struct pqueue_t *pqueue, void *item)
 }
 
 
+
 /*
  * pqueue_top - Returns reference to the top element in the priority queue.
  * This element will be removed on a call to pop().
