@@ -82,5 +82,12 @@ struct spqueue_t
 
 
 
+#define DECLARE_SPQUEUE(name, capacity, cmp_func)    \
+    void* pqueue_ ## name ## _items[capacity];       \
+    struct spqueue_t name = { pqueue_ ## name ## _items, 0, capacity, cmp_func }
+
+
+
+
 
 #endif // SPQUEUE_H
