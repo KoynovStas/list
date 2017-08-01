@@ -90,4 +90,17 @@ struct spqueue_t
 
 
 
+static inline void spqueue_init(struct spqueue_t *pqueue, void **items,
+                                size_t capacity, pqueue_cmp_func cmp_func)
+{
+    pqueue->items    = items;
+    pqueue->size     = 0;
+    pqueue->capacity = capacity;
+    pqueue->cmp_func = cmp_func;
+}
+
+
+
+
+
 #endif // SPQUEUE_H
