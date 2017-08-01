@@ -76,6 +76,36 @@ struct pqueue_t
 
 
 
+/*
+ * pqueue_init - init the priority queue.
+ *
+ * pqueue:   the priority queue for work.
+ * inc_step: increment step for realloc in push func (if == 0 realloc dont call)
+ * capacity: current capacity of queue
+ * cmp_func: compare function for work heap
+ *
+ * ret: -1    //if cant get memory
+ * ret: 0     //good job. the priority queue was init.
+ */
+static inline int pqueue_init(struct pqueue_t *pqueue, size_t inc_step,
+                              size_t capacity, pqueue_cmp_func cmp_func)
+{
+
+    pqueue->items = malloc(capacity*sizeof(void *));
+    if( !pqueue->items )
+        return -1; // fuck cant get memory
+
+
+    pqueue->size     = 0;
+    pqueue->capacity = capacity;
+    pqueue->cmp_func = cmp_func;
+    pqueue->inc_step = inc_step;
+
+    return 0; //good job
+}
+
+
+
 
 
 #endif // PQUEUE_H
