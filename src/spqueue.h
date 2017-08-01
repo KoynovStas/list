@@ -101,6 +101,15 @@ static inline void spqueue_init(struct spqueue_t *pqueue, void **items,
 
 
 
+static inline void spqueue_item_swap(struct spqueue_t *pqueue, size_t i, size_t j)
+{
+    void* tmp        = pqueue->items[i];
+    pqueue->items[i] = pqueue->items[j];
+    pqueue->items[j] = tmp;
+}
+
+
+
 
 
 #endif // SPQUEUE_H
