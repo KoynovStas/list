@@ -153,10 +153,66 @@ TEST(test_spqueue_top)
 
 
 
+TEST(test_spqueue_top2)
+{
+
+    const size_t SIZE = 100;
+
+    DECLARE_SPQUEUE(tmp_pqueue, SIZE, compare_int_keys);
+
+    struct tmp_data items[SIZE];
+
+    TEST_ASSERT(tmp_pqueue.size == 0);    //pqueue must be empty
+
+
+    for(size_t i = 0; i < SIZE; i++)
+    {
+        items[i].key = i;
+        spqueue_push(&tmp_pqueue, &items[i].key);
+    }
+
+    TEST_ASSERT(tmp_pqueue.size == SIZE);
+
+
+    for(size_t i = 0; i < SIZE; i++)
+    {
+        TEST_ASSERT(spqueue_top(&tmp_pqueue) == &items[i].key);
+        spqueue_pop(&tmp_pqueue);
+    }
+
+    TEST_ASSERT(tmp_pqueue.size == 0);
+
+
+    //reverse
+
+    for(size_t i = 0; i < SIZE; i++)
+    {
+        items[i].key = SIZE-i;
+        spqueue_push(&tmp_pqueue, &items[i].key);
+    }
+
+    TEST_ASSERT(tmp_pqueue.size == SIZE);
+
+
+    for(size_t i = 0; i < SIZE; i++)
+    {
+        TEST_ASSERT(spqueue_top(&tmp_pqueue) == &items[SIZE-i-1].key);
+        spqueue_pop(&tmp_pqueue);
+    }
+
+    TEST_ASSERT(tmp_pqueue.size == 0);
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_spqueue_size,
     test_spqueue_top,
+    test_spqueue_top2,
 };
 
 
