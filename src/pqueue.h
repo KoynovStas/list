@@ -166,6 +166,20 @@ static inline void pqueue_pop(struct pqueue_t *pqueue)
 
 
 
+/*
+ * pqueue_swap - Exchanges the contents of the containers pqueue1 and pqueue2
+ *
+ * pqueue1/2: the priority queues for work.
+ */
+static inline void pqueue_swap(struct pqueue_t *pqueue1, struct pqueue_t *pqueue2)
+{
+    struct pqueue_t tmp = *pqueue1;
+    *pqueue1            = *pqueue2;
+    *pqueue2            = tmp;
+}
+
+
+
 
 
 #endif // PQUEUE_H
