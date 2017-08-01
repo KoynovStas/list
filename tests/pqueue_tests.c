@@ -91,12 +91,53 @@ TEST(test_pqueue_size)
 
 
 
+TEST(test_pqueue_size2)
+{
+    struct pqueue_t tmp_pqueue;
+
+    TEST_ASSERT(pqueue_init(&tmp_pqueue, 16, 4, compare_int_keys) == 0);
+
+    DECLARE_TMP_DATA(d1, 1, 0);
+    DECLARE_TMP_DATA(d2, 2, 0);
+    DECLARE_TMP_DATA(d3, 3, 0);
+    DECLARE_TMP_DATA(d4, 4, 0);
+
+    int res;
+
+    TEST_ASSERT(tmp_pqueue.size == 0);    //pqueue must be empty
+
+
+    res = pqueue_push(&tmp_pqueue, &d1.key);  //now d1 is first
+    TEST_ASSERT(tmp_pqueue.size == 1);           //pqueue now is NOT empty
+    TEST_ASSERT(res == 0);
+
+    res = pqueue_push(&tmp_pqueue, &d2.key);
+    TEST_ASSERT(tmp_pqueue.size == 2);
+    TEST_ASSERT(res == 0);
+
+    res = pqueue_push(&tmp_pqueue, &d3.key);
+    TEST_ASSERT(tmp_pqueue.size == 3);
+    TEST_ASSERT(res == 0);
+
+    res = pqueue_push(&tmp_pqueue, &d4.key);
+    TEST_ASSERT(tmp_pqueue.size == 4);
+    TEST_ASSERT(res == 0);
+
+    res = pqueue_push(&tmp_pqueue, &d4.key);
+    TEST_ASSERT(tmp_pqueue.size == 5);
+    TEST_ASSERT(res == 0);
+    TEST_ASSERT(tmp_pqueue.capacity == 20);
+
+
+    TEST_PASS(NULL);
+}
 
 
 
 ptest_func tests[] =
 {
     test_pqueue_size,
+    test_pqueue_size2,
 };
 
 
