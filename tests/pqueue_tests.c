@@ -134,10 +134,62 @@ TEST(test_pqueue_size2)
 
 
 
+TEST(test_pqueue_top)
+{
+    struct pqueue_t tmp_pqueue;
+    TEST_ASSERT(pqueue_init(&tmp_pqueue, 0, 4, compare_int_keys) == 0);
+
+    DECLARE_TMP_DATA(d1, 1, 0);
+    DECLARE_TMP_DATA(d2, 2, 0);
+    DECLARE_TMP_DATA(d3, 3, 0);
+    DECLARE_TMP_DATA(d4, 4, 0);
+
+
+    TEST_ASSERT(tmp_pqueue.size == 0);    //pqueue must be empty
+
+
+    pqueue_push(&tmp_pqueue, &d1.key);  //now d1 is first
+    TEST_ASSERT(pqueue_top(&tmp_pqueue) == &d1.key);
+
+    pqueue_push(&tmp_pqueue, &d2.key);
+    TEST_ASSERT(pqueue_top(&tmp_pqueue) == &d1.key);
+
+    pqueue_push(&tmp_pqueue, &d3.key);
+    TEST_ASSERT(pqueue_top(&tmp_pqueue) == &d1.key);
+
+    pqueue_push(&tmp_pqueue, &d4.key);
+    TEST_ASSERT(pqueue_top(&tmp_pqueue) == &d1.key);
+
+
+
+
+    pqueue_pop(&tmp_pqueue);
+    TEST_ASSERT(pqueue_top(&tmp_pqueue) == &d2.key);
+
+    pqueue_pop(&tmp_pqueue);
+    TEST_ASSERT(pqueue_top(&tmp_pqueue) == &d3.key);
+
+    pqueue_pop(&tmp_pqueue);
+    TEST_ASSERT(pqueue_top(&tmp_pqueue) == &d4.key);
+
+    pqueue_pop(&tmp_pqueue);
+    TEST_ASSERT(pqueue_top(&tmp_pqueue) == NULL);
+
+    pqueue_pop(&tmp_pqueue);
+    TEST_ASSERT(pqueue_top(&tmp_pqueue) == NULL);
+
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_pqueue_size,
     test_pqueue_size2,
+    test_pqueue_top,
 };
 
 
