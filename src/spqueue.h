@@ -168,5 +168,25 @@ static inline int spqueue_push(struct spqueue_t *pqueue, void *item)
 
 
 
+/*
+ * spqueue_top - Returns reference to the top element in the priority queue.
+ * This element will be removed on a call to pop().
+ *
+ * pqueue: the priority queue for work.
+ *
+ * ret: NULL   //if pqueue is empty
+ * ret: *Item  //good job ret top item.
+ */
+static inline void* spqueue_top(struct spqueue_t *pqueue)
+{
+    if(pqueue->size == 0)
+        return NULL;
+
+    return pqueue->items[0];
+}
+
+
+
+
 
 #endif // SPQUEUE_H
