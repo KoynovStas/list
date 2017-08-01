@@ -106,6 +106,39 @@ static inline int pqueue_init(struct pqueue_t *pqueue, size_t inc_step,
 
 
 
+/*
+ * pqueue_push - Pushes the given element item to the priority queue.
+ * If the priority queue is full and pqueue->inc_step != 0 will be call realloc
+ * function for get memory.
+ *
+ *
+ * pqueue: the priority queue for work.
+ * item:   the item for push
+ *
+ * ret: -1    //if pqueue is full and cant push
+ * ret: 0     //good job. item was pushed to the priority queue.
+ */
+static inline int pqueue_push(struct pqueue_t *pqueue, void *item)
+{
+    if( (pqueue->size >= pqueue->capacity) && pqueue->inc_step )
+    {
+        size_t new_capacity = pqueue->capacity + pqueue->inc_step;
+        void* tmp = realloc(pqueue->items, new_capacity*sizeof(void *));
+
+        if(!tmp)
+            return -1; //cant get memory
+
+
+        pqueue->items    = tmp;
+        pqueue->capacity = new_capacity;
+    }
+
+
+    return spqueue_push((struct spqueue_t *)pqueue, item);
+}
+
+
+
 
 
 #endif // PQUEUE_H
