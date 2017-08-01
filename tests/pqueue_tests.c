@@ -241,12 +241,70 @@ TEST(test_pqueue_top2)
 
 
 
+TEST(test_pqueue_top3)
+{
+
+    const size_t SIZE = 100;
+
+    struct pqueue_t tmp_pqueue;
+    TEST_ASSERT(pqueue_init(&tmp_pqueue, 32, 32, compare_int_keys) == 0);
+
+    struct tmp_data items[SIZE];
+
+    TEST_ASSERT(tmp_pqueue.size == 0);    //pqueue must be empty
+
+
+    for(size_t i = 0; i < SIZE; i++)
+    {
+        items[i].key = i;
+        pqueue_push(&tmp_pqueue, &items[i].key);
+    }
+
+    TEST_ASSERT(tmp_pqueue.size == SIZE);
+    TEST_ASSERT(tmp_pqueue.capacity == 128);
+
+
+    for(size_t i = 0; i < SIZE; i++)
+    {
+        TEST_ASSERT(pqueue_top(&tmp_pqueue) == &items[i].key);
+        pqueue_pop(&tmp_pqueue);
+    }
+
+    TEST_ASSERT(tmp_pqueue.size == 0);
+
+
+    //reverse
+
+    for(size_t i = 0; i < SIZE; i++)
+    {
+        items[i].key = SIZE-i;
+        pqueue_push(&tmp_pqueue, &items[i].key);
+    }
+
+    TEST_ASSERT(tmp_pqueue.size == SIZE);
+
+
+    for(size_t i = 0; i < SIZE; i++)
+    {
+        TEST_ASSERT(pqueue_top(&tmp_pqueue) == &items[SIZE-i-1].key);
+        pqueue_pop(&tmp_pqueue);
+    }
+
+    TEST_ASSERT(tmp_pqueue.size == 0);
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_pqueue_size,
     test_pqueue_size2,
     test_pqueue_top,
     test_pqueue_top2,
+    test_pqueue_top3,
 };
 
 
