@@ -133,6 +133,18 @@ static inline void spqueue_sift_down(struct spqueue_t *pqueue, size_t i)
 
 
 
+static inline void spqueue_sift_up(struct spqueue_t *pqueue, size_t i)
+{
+
+    while( (i>0) && pqueue->cmp_func(pqueue->items[i], pqueue->items[PQUEUE_PARENT(i)]) )   // i == 0 is root
+    {
+        spqueue_item_swap(pqueue, i, PQUEUE_PARENT(i));
+        i = PQUEUE_PARENT(i);
+    }
+}
+
+
+
 
 
 #endif // SPQUEUE_H
