@@ -145,6 +145,28 @@ static inline void spqueue_sift_up(struct spqueue_t *pqueue, size_t i)
 
 
 
+/*
+ * spqueue_push - Pushes the given element item to the priority queue.
+ *
+ * pqueue: the priority queue for work.
+ *
+ * ret: -1    //if pqueue is full
+ * ret: 0     //good job. item was pushed to the priority queue.
+ */
+static inline int spqueue_push(struct spqueue_t *pqueue, void *item)
+{
+    if(pqueue->size >= pqueue->capacity)
+        return -1; //queue is full
+
+
+    pqueue->items[pqueue->size] = item;
+    spqueue_sift_up(pqueue, pqueue->size);
+    pqueue->size += 1;
+
+    return 0; //good job
+}
+
+
 
 
 #endif // SPQUEUE_H
