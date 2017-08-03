@@ -174,14 +174,11 @@ static inline int spqueue_push(struct spqueue_t *pqueue, void *item)
  *
  * pqueue: the priority queue for work.
  *
- * ret: NULL   //if pqueue is empty
+ * ret: NULL   //if pqueue is empty (see pop func (clear old val))
  * ret: *Item  //good job ret top item.
  */
 static inline void* spqueue_top(struct spqueue_t *pqueue)
 {
-    if(pqueue->size == 0)
-        return NULL;
-
     return pqueue->items[0];
 }
 
@@ -197,8 +194,10 @@ static inline void spqueue_pop(struct spqueue_t *pqueue)
     if(pqueue->size == 0)
         return;
 
+
     pqueue->size--;
-    pqueue->items[0] = pqueue->items[pqueue->size];
+    pqueue->items[0]            = pqueue->items[pqueue->size];
+    pqueue->items[pqueue->size] = NULL;  //clear old value if size == 0 top == NULL
 
     spqueue_sift_down(pqueue, 0);
 }
