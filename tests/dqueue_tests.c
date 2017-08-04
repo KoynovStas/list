@@ -1195,6 +1195,60 @@ TEST(test_dqueue_max)
 
 
 
+TEST(test_dqueue_minmax)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data  nodes[COUNT_NODES];
+    struct tmp_data  *tmp_data;
+    dqueue_node *res[2];
+
+
+    dqueue_minmax(dqueue_begin(&dqueue), dqueue_end(&dqueue), comp_less, res);
+    TEST_ASSERT(res[0] == dqueue_end(&dqueue)); //min == end iterator (list empty)
+    TEST_ASSERT(res[1] == dqueue_end(&dqueue)); //max == end iterator (list empty)
+
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        dqueue_push_back(&nodes[i].node, &dqueue);
+    }
+
+
+    dqueue_minmax(dqueue_begin(&dqueue), dqueue_end(&dqueue), comp_less, res);
+    tmp_data = dqueue_data(res[0], struct tmp_data, node);
+    TEST_ASSERT(tmp_data->data == 0);                       //min
+
+    tmp_data = dqueue_data(res[1], struct tmp_data, node);
+    TEST_ASSERT(tmp_data->data == COUNT_NODES-1);           //max
+
+
+    dqueue_init(&dqueue);  //clear
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = -i;
+        dqueue_push_back(&nodes[i].node, &dqueue);
+    }
+
+
+    dqueue_minmax(dqueue_begin(&dqueue), dqueue_end(&dqueue), comp_less, res);
+    tmp_data = dqueue_data(res[0], struct tmp_data, node);
+    TEST_ASSERT(tmp_data->data == -(COUNT_NODES-1));        //min
+
+    tmp_data = dqueue_data(res[1], struct tmp_data, node);
+    TEST_ASSERT(tmp_data->data == 0);                       //max
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -1235,6 +1289,7 @@ ptest_func tests[] =
     test_dqueue_for_each,
     test_dqueue_min,
     test_dqueue_max,
+    test_dqueue_minmax,
 };
 
 
