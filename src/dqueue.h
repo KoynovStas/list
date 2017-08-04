@@ -43,6 +43,52 @@
 
 
 
+typedef struct dlist_head dqueue_node;
+
+
+
+struct dqueue_t
+{
+    struct dlist_head head;
+    size_t            size;
+};
+
+
+
+
+
+#define INIT_DQUEUE(name) { { &(name.head), &(name.head) }, 0 }
+
+#define DECLARE_DQUEUE(name) \
+    struct dqueue_t name = INIT_DQUEUE(name)
+
+
+
+#define INIT_DQUEUE_NODE(name) { &(name), &(name) }
+
+#define DECLARE_DQUEUE_NODE(name) \
+    dqueue_node name = INIT_DQUEUE_NODE(name)
+
+
+
+
+
+static inline void dqueue_init(struct dqueue_t *dqueue)
+{
+    dlist_init_head(&dqueue->head);
+    dqueue->size = 0;
+}
+
+
+
+static inline void dqueue_init_node(dqueue_node *node)
+{
+    dlist_init_node(node);
+}
+
+
+
+
 
 
 
