@@ -755,6 +755,34 @@ static inline void dqueue_minmax(dqueue_node *first, dqueue_node *last,
 
 
 
+/*
+ * dqueue_find - Find element in range
+ *
+ * Returns an iterator to the first element in the range [first,last)
+ * for which pred returns true.
+ * If no such element is found, the function returns last.
+ *
+ * first, last is Input iterators to the initial and final positions
+ * of the sequence to find
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first: the &dqueue_node to use as a loop cursor(iterator)
+ * last:  the &dqueue_node to use as a last element.
+ * pred:  Unary function that accepts an element in the range as argument
+ *        and returns a value convertible to bool.
+ *        The value returned indicates whether the element is considered a match
+ *        in the context of this function.
+ *        The function shall not modify its argument.
+ *        This can either be a function pointer or a function object.
+ */
+static inline dqueue_node* dqueue_find(dqueue_node *first, dqueue_node *last,
+                                      int (*pred) (const dqueue_node *node) )
+{
+    return dlist_find(first, last, pred);
+}
+
 
 
 
