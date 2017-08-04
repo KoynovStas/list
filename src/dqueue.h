@@ -594,6 +594,23 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
 
 
 
+/*
+ * dqueue_data_iter - iterate over dqueue of given type
+ *
+ * it:     the &dqueue_node to use as a loop cursor(iterator).
+ * dqueue: the dqueue for work.
+ * tmp_it: another &dqueue_node to use as temporary cursor(iterator)
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(dqueue_node) within the struct of data.
+ */
+#define dqueue_data_iter(it, dqueue, tmp_it, type, member)                              \
+    for (it = dqueue_data((dqueue)->head.next, type, member), tmp_it = it->member.next; \
+         &it->member != &(dqueue)->head;                                                \
+         it = dqueue_data(tmp_it, type, member), tmp_it = it->member.next)
+
+
+
+
 
 
 #endif // DQUEUE_H
