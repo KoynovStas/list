@@ -339,6 +339,42 @@ static inline void dqueue_rotate_right(struct dqueue_t *dqueue)
 
 
 
+/*
+ * dqueue_splice_front - transfers all the elements of src into the container(dest)
+ *
+ * dest: dqueue to copy to (copy to front)
+ * src:  dqueue to copy from
+ */
+static inline void dqueue_splice_front(struct dqueue_t *src, struct dqueue_t *dest)
+{
+    if(src->size)
+    {
+        sys_dlist_splice(&src->head, &dest->head, dest->head.next);
+        dest->size += src->size;
+        dqueue_init(src);
+    }
+}
+
+
+
+/*
+ * dqueue_splice_back - transfers all the elements of src into the container(dest)
+ *
+ * dest: dqueue to copy to  (copy to back)
+ * src:  dqueue to copy from
+ */
+static inline void dqueue_splice_back(struct dqueue_t *src, struct dqueue_t *dest)
+{
+    if(src->size)
+    {
+        sys_dlist_splice(&src->head, dest->head.prev, &dest->head);
+        dest->size += src->size;
+        dqueue_init(src);
+    }
+}
+
+
+
 
 
 #endif // DQUEUE_H
