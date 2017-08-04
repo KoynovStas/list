@@ -307,6 +307,37 @@ TEST(test_dqueue_pop_back)
 
 
 
+TEST(test_dqueue_replace_init)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+
+
+    //add
+    dqueue_push_front(&d1.node, &dqueue);
+
+    TEST_ASSERT(dqueue_is_last(&d1.node, &dqueue));    //d1 in list
+    TEST_ASSERT(dqueue_is_first(&d1.node, &dqueue));   //d1 in list
+    TEST_ASSERT(!dqueue_is_last(&d2.node, &dqueue));   //d2 dont in list
+
+
+    dqueue_replace_init(&d1.node, &d2.node);
+
+
+    TEST_ASSERT(dlist_empty(&d1.node));               //d1 must be clean
+
+    TEST_ASSERT(dqueue_size(&dqueue) == 1);           //size == 1 (d1)
+    TEST_ASSERT(!dqueue_is_last(&d1.node, &dqueue));  //d1 dont in list
+    TEST_ASSERT(dqueue_is_last(&d2.node, &dqueue));
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -317,6 +348,7 @@ ptest_func tests[] =
     test_dqueue_del,
     test_dqueue_pop_front,
     test_dqueue_pop_back,
+    test_dqueue_replace_init,
 
 };
 
