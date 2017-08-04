@@ -428,6 +428,18 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
 
 
 
+/*
+ * dqueue_data_or_null - get the struct (data) for this node
+ *
+ * node:   the node.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(dqueue_node) within the struct of data.
+ *
+ * Note it returns NULL if the node is empty (not in dqueue).
+ */
+#define dqueue_data_or_null(node, type, member) \
+    (dlist_empty(node) ? NULL : dqueue_data(node, type, member))
+
 
 
 
