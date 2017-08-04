@@ -605,6 +605,68 @@ TEST(test_dqueue_reverse)
 
 
 
+TEST(test_dqueue_swap)
+{
+    DECLARE_DQUEUE(dqueue1);
+    DECLARE_DQUEUE(dqueue2);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data nodes[COUNT_NODES];
+    dqueue_node *it;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        dqueue_push_back(&nodes[i].node, &dqueue1);
+    }
+
+    TEST_ASSERT( dqueue_size(&dqueue1) == COUNT_NODES );
+    TEST_ASSERT( dqueue_size(&dqueue2) == 0 );
+
+    i=0;
+    dqueue_citer(it, &dqueue1)
+    {
+        TEST_ASSERT( it == &nodes[i].node );  //test nodes
+        i++;
+    }
+
+
+    //swap self
+    dqueue_swap(&dqueue1, &dqueue1);
+    TEST_ASSERT( dqueue_size(&dqueue1) == COUNT_NODES );
+
+    i=0;
+    dqueue_citer(it, &dqueue1)
+    {
+        TEST_ASSERT( it == &nodes[i].node );  //test nodes
+        i++;
+    }
+
+
+
+    dqueue_swap(&dqueue1, &dqueue2);
+    TEST_ASSERT( dqueue_size(&dqueue1) == 0 );
+    TEST_ASSERT( dqueue_size(&dqueue2) == COUNT_NODES );
+
+
+    i=0;
+    dqueue_citer(it, &dqueue2)
+    {
+        TEST_ASSERT( it == &nodes[i].node );  //test nodes
+        i++;
+    }
+
+
+    dqueue_swap(&dqueue1, &dqueue1);
+    TEST_ASSERT( dqueue_size(&dqueue1) == 0 );
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -623,6 +685,7 @@ ptest_func tests[] =
     test_dqueue_splice_front,
     test_dqueue_splice_back,
     test_dqueue_reverse,
+    test_dqueue_swap,
 
 };
 
