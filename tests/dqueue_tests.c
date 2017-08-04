@@ -341,7 +341,6 @@ TEST(test_dqueue_replace_init)
 TEST(test_dqueue_move_to_front)
 {
     DECLARE_DQUEUE(dqueue1);
-    DECLARE_DQUEUE(dqueue2);
 
     DECLARE_TMP_DATA(d1);
     DECLARE_TMP_DATA(d2);
@@ -366,6 +365,32 @@ TEST(test_dqueue_move_to_front)
 
 
 
+TEST(test_dqueue_move_to_back)
+{
+    DECLARE_DQUEUE(dqueue1);
+
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+
+
+    //add
+    dqueue_push_front(&d1.node, &dqueue1);
+    dqueue_push_front(&d2.node, &dqueue1);
+
+
+    dqueue_move_to_back(&d1.node, &dqueue1);
+
+
+    TEST_ASSERT(dqueue_size(&dqueue1) == 2);
+    TEST_ASSERT(dqueue_is_last(&d1.node, &dqueue1));
+    TEST_ASSERT(dqueue_is_first(&d2.node, &dqueue1));
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -378,6 +403,7 @@ ptest_func tests[] =
     test_dqueue_pop_back,
     test_dqueue_replace_init,
     test_dqueue_move_to_front,
+    test_dqueue_move_to_back,
 
 };
 
