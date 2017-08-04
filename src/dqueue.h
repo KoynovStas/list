@@ -309,6 +309,36 @@ static inline void dqueue_move_to_back(dqueue_node *node, struct dqueue_t *dqueu
 
 
 
+/*
+ * dqueue_rotate_left - rotate the dqueue to the left
+ *
+ * dqueue: dqueue
+ *
+ * before:  [...] <-> [nodeN] <-> [head]  <-> [node1] <-> [node2]  <-> [...]
+ * after:   [...] <-> [nodeN] <-> [node1] <-> [head]  <-> [node2]  <-> [...]
+ */
+static inline void dqueue_rotate_left(struct dqueue_t *dqueue)
+{
+    dlist_rotate_left(&dqueue->head);
+}
+
+
+
+/*
+ * dqueue_rotate_right - rotate the dqueue to the right
+ *
+ * dqueue: dqueue
+ *
+ * before:  [...] <-> [nodeN] <-> [head]  <-> [node1] <-> [node2] <-> [...]
+ * after:   [...] <-> [head]  <-> [nodeN] <-> [node1] <-> [node2] <-> [...]
+ */
+static inline void dqueue_rotate_right(struct dqueue_t *dqueue)
+{
+    dlist_rotate_right(&dqueue->head);
+}
+
+
+
 
 
 #endif // DQUEUE_H
