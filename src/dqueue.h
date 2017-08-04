@@ -500,4 +500,26 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
 
 
 
+//---------------- Iterator ----------------
+
+
+
+
+
+/*
+ * dqueue_citer - constant iterate over a dqueue
+ *
+ * it:      the &dqueue_node to use as a loop cursor(iterator).
+ * dqueue:  the dqueue for work.
+ *
+ * Note You do not have to change dqueue in this cycle.
+ *
+ */
+#define dqueue_citer(it, dqueue) \
+    for( it = (dqueue)->head.next; it != &(dqueue)->head; it = it->next )
+
+
+
+
+
 #endif // DQUEUE_H
