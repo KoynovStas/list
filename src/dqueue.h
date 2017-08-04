@@ -137,6 +137,21 @@ static inline int dqueue_is_last(const dqueue_node *node,
 
 
 
+/*
+ * dqueue_is_singular - tests whether a dqueue has just one node.
+ *
+ * dqueue: the dqueue to test.
+ *
+ * ret: true  //if the container size == 1
+ * ret: false //if the container size != 1
+ */
+static inline int dqueue_is_singular(const struct dqueue_t *dqueue)
+{
+    return (dqueue->size == 1);
+}
+
+
+
 
 
 #endif // DQUEUE_H
