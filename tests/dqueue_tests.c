@@ -438,6 +438,53 @@ TEST(test_dqueue_rotate_left)
 
 
 
+TEST(test_dqueue_rotate_right)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
+    DECLARE_TMP_DATA(d4);
+
+
+    //add
+    dqueue_push_front(&d4.node, &dqueue);
+    dqueue_push_front(&d3.node, &dqueue);
+    dqueue_push_front(&d2.node, &dqueue);
+    dqueue_push_front(&d1.node, &dqueue);              //[head] <-> [d1] <-> [d2] <-> [d3] <-> [d4]
+
+
+
+    dqueue_rotate_right(&dqueue);                       //[d3] <-> [head] <-> [d4] <-> [d1] <-> [d2]
+
+    TEST_ASSERT(dqueue_is_last(&d3.node, &dqueue));     //d3 last
+    TEST_ASSERT(dqueue_is_first(&d4.node, &dqueue));    //d4 first
+
+
+    dqueue_rotate_right(&dqueue);                       //[d1] <-> [d2] <-> [head] <-> [d3] <-> [d4]
+
+    TEST_ASSERT(dqueue_is_last(&d2.node, &dqueue));     //d2 last
+    TEST_ASSERT(dqueue_is_first(&d3.node, &dqueue));    //d3 first
+
+
+    dqueue_rotate_right(&dqueue);                       //[d3] <-> [d4] <-> [d1] <-> [head] <-> [d2]
+
+    TEST_ASSERT(dqueue_is_last(&d1.node, &dqueue));     //d1 last
+    TEST_ASSERT(dqueue_is_first(&d2.node, &dqueue));    //d2 first
+
+
+    dqueue_rotate_right(&dqueue);                       //[d2] <-> [d3] <-> [d4] <-> [head] <-> [d1]
+
+    TEST_ASSERT(dqueue_is_last(&d4.node, &dqueue));     //d4 last
+    TEST_ASSERT(dqueue_is_first(&d1.node, &dqueue));    //d1 first
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -452,6 +499,7 @@ ptest_func tests[] =
     test_dqueue_move_to_front,
     test_dqueue_move_to_back,
     test_dqueue_rotate_left,
+    test_dqueue_rotate_right,
 
 };
 
