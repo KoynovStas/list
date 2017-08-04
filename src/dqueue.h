@@ -654,6 +654,38 @@ static inline void dqueue_for_each(dqueue_node *first, dqueue_node *last,
 
 
 
+/*
+ * dqueue_min - Return smallest element in range
+ *
+ * Returns an iterator pointing to the element with the smallest value
+ * in the range [first,last).
+ *
+ * An element is the smallest if no other element compares less than it.
+ * If more than one element fulfills this condition,
+ * the iterator returned points to the first of such elements.
+ *
+ * first, last is Input iterators to the initial and final positions
+ * of the sequence to compare
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first:  the &dqueue_node to use as a loop cursor(iterator)
+ * last:   the &dqueue_node to use as a last element.
+ * comp:   Binary function that accepts two elements in the range as arguments,
+ *         and returns a value convertible to bool. The value returned indicates
+ *         whether the element passed as first argument is considered less than the second.
+ *         The function shall not modify any of its arguments
+ */
+static inline dqueue_node* dqueue_min(dqueue_node *first, dqueue_node *last,
+                                      int (*comp) (const dqueue_node *n1, const dqueue_node *n2) )
+{
+    return dlist_min(first, last, comp);
+}
+
+
+
+
 
 
 
