@@ -259,6 +259,28 @@ static inline void dqueue_pop_back(struct dqueue_t *dqueue)
 
 
 
+/*
+ * dqueue_replace - replace old node by new node
+ *
+ * old_node: the element to be replaced
+ * new_node: the new element to insert
+ *
+ * If old_node was empty, it will be overwritten for _init variant
+ *
+ * Note: new_node should be free. out of the dqueue.
+ */
+static inline void dqueue_replace(dqueue_node *old_node,
+                                  dqueue_node *new_node)
+{
+    dlist_replace(old_node, new_node);
+}
+
+static inline void dqueue_replace_init(dqueue_node *old_node,
+                                       dqueue_node *new_node)
+{
+    dlist_replace_init(old_node, new_node);
+}
+
 
 
 #endif // DQUEUE_H
