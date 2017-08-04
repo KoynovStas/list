@@ -628,5 +628,33 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
 
 
 
+//---------------- Algorithm ----------------
+
+
+
+
+
+/*
+ * dqueue_for_each - Applies function fn to each of the elements in the range [first,last)
+ *
+ * first, last is Input iterators to the initial and final positions in a sequence.
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first:  the &dqueue_node to use as a first element
+ * last:   the &dqueue_node to use as a last element.
+ * fn:     Unary function that accepts an element in the range as argument.
+ */
+static inline void dqueue_for_each(dqueue_node *first, dqueue_node *last,
+                                   void (*fn) (dqueue_node *node))
+{
+    dlist_for_each(first, last, fn);
+}
+
+
+
+
+
 
 #endif // DQUEUE_H
