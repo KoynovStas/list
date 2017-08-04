@@ -375,6 +375,21 @@ static inline void dqueue_splice_back(struct dqueue_t *src, struct dqueue_t *des
 
 
 
+/*
+ * dqueue_reverse - reverse the dqueue
+ *
+ * dqueue: the dqueue
+ *
+ * before:  [...] <-> [N] <-> [head] <-> [1] <-> [2] <-> [3] <-> [...]
+ * after:   [...] <-> [3] <-> [2] <-> [1] <-> [head] <-> [N] <-> [...]
+ */
+static inline void dqueue_reverse(struct dqueue_t *dqueue)
+{
+    dlist_reverse(&dqueue->head);
+}
+
+
+
 
 
 #endif // DQUEUE_H
