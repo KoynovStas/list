@@ -518,38 +518,38 @@ static inline void sys_dlist_splice(struct dlist_head *list,
 
 
 /*
- * dlist_splice_front - transfers all the elements of list into the container(head)
+ * dlist_splice_front - transfers all the elements of src into the container(dest)
  *                     this is designed for stacks
  *
- * list: the new list to add.
- * head: the place to add elements of list.
+ * dest: dlist to copy to  (copy to front)
+ * src:  dlist to copy from
  */
-static inline void dlist_splice_front(struct dlist_head *list,
-                                      struct dlist_head *head)
+static inline void dlist_splice_front(struct dlist_head *src,
+                                      struct dlist_head *dest)
 {
-    if(!dlist_empty(list))
+    if(!dlist_empty(src))
     {
-        sys_dlist_splice(list, head, head->next);
-        dlist_init_head(list);
+        sys_dlist_splice(src, dest, dest->next);
+        dlist_init_head(src);
     }
 }
 
 
 
 /*
- * dlist_splice_back - transfers all the elements of list into the container(head)
+ * dlist_splice_back - transfers all the elements of list into the container(dest)
  *                     this is designed for queue
  *
- * list: the new list to add.
- * head: the place to add elements of list.
+ * dest: dlist to copy to  (copy to back)
+ * src:  dlist to copy from
  */
-static inline void dlist_splice_back(struct dlist_head *list,
-                                     struct dlist_head *head)
+static inline void dlist_splice_back(struct dlist_head *src,
+                                     struct dlist_head *dest)
 {
-    if (!dlist_empty(list))
+    if (!dlist_empty(src))
     {
-        sys_dlist_splice(list, head->prev, head);
-        dlist_init_head(list);
+        sys_dlist_splice(src, dest->prev, dest);
+        dlist_init_head(src);
     }
 }
 

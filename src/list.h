@@ -553,38 +553,38 @@ static inline void sys_list_splice(struct list_head *list,
 
 
 /*
- * list_splice_front - transfers all the elements of list into the container(head)
+ * list_splice_front - transfers all the elements of src into the container(dest)
  *                     this is designed for stacks
  *
- * list: the new list to add.
- * head: the place to add elements of list.
+ * dest: list to copy to  (copy to front)
+ * src:  list to copy from
  */
-static inline void list_splice_front(struct list_head *list,
-                                     struct list_head *head)
+static inline void list_splice_front(struct list_head *src,
+                                     struct list_head *dest)
 {
-    if(!list_empty(list))
+    if(!list_empty(src))
     {
-        sys_list_splice(list, head, head->next);
-        list_init_head(list);
+        sys_list_splice(src, dest, dest->next);
+        list_init_head(src);
     }
 }
 
 
 
 /*
- * list_splice_back - transfers all the elements of list into the container(head)
- *                     this is designed for queue
+ * list_splice_back - transfers all the elements of src into the container(dest)
+ *                    this is designed for queue
  *
- * list: the new list to add.
- * head: the place to add elements of list.
+ * dest: list to copy to  (copy to back)
+ * src:  list to copy from
  */
-static inline void list_splice_back(struct list_head *list,
-                                    struct list_head *head)
+static inline void list_splice_back(struct list_head *src,
+                                    struct list_head *dest)
 {
-    if (!list_empty(list))
+    if (!list_empty(src))
     {
-        sys_list_splice(list, list_prev(head), head);
-        list_init_head(list);
+        sys_list_splice(src, list_prev(dest), dest);
+        list_init_head(src);
     }
 }
 
