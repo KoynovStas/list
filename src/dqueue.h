@@ -685,6 +685,37 @@ static inline dqueue_node* dqueue_min(dqueue_node *first, dqueue_node *last,
 
 
 
+/*
+ * dqueue_max - Return largest element in range
+ *
+ * Returns an iterator pointing to the element with the with the largest value
+ * in the range [first,last).
+ *
+ * An element is the largest if no other element does not compare less than it.
+ * If more than one element fulfills this condition,
+ * the iterator returned points to the first of such elements.
+ *
+ * first, last is Input iterators to the initial and final positions
+ * of the sequence to compare
+ * The range used is [first,last), which contains all the elements
+ * between first and last, including the element pointed by first
+ * but not the element pointed by last.
+ *
+ * first:  the &dqueue_node to use as a first element.
+ * last:   the &dqueue_node to use as a last element.
+ * comp:   Binary function that accepts two elements in the range as arguments,
+ *         and returns a value convertible to bool. The value returned indicates
+ *         whether the element passed as first argument is considered less than the second.
+ *         The function shall not modify any of its arguments
+ */
+static inline dqueue_node* dqueue_max(dqueue_node *first, dqueue_node *last,
+                                      int (*comp) (const dqueue_node *n1, const dqueue_node *n2) )
+{
+    return dlist_max(first, last, comp);
+}
+
+
+
 
 
 
