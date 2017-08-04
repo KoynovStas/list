@@ -103,6 +103,22 @@ static inline int dqueue_empty(struct dqueue_t *dqueue)
 
 
 
+/*
+ * dqueue_is_first - tests whether node is the first node in dqueue
+ *
+ * node: the node to test
+ * dqueue: the dqueue
+ *
+ *  ret: true   // if [...] <-> [head] <-> [node] <-> [...]
+ *  ret: false  // else
+ */
+static inline int dqueue_is_first(const dqueue_node *node,
+                                  const struct dqueue_t *dqueue)
+{
+    return node == dqueue->head.next;
+}
+
+
 
 
 
