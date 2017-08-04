@@ -456,6 +456,20 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
 
 
 
+/*
+ * dqueue_last_data - get the last struct (data) from a dqueue
+ *
+ * dqueue: the dqueue to take the element from.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(dlist_head) within the struct of data.
+ *
+ * Note - dqueue don't have to  be empty.
+ */
+#define dqueue_last_data(dqueue, type, member) \
+    dqueue_data((dqueue)->head.prev, type, member)
+
+
+
 
 
 #endif // DQUEUE_H
