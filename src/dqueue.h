@@ -223,6 +223,42 @@ static inline void dqueue_del(dqueue_node *node, struct dqueue_t *dqueue)
 
 
 
+/*
+ * dqueue_pop_front - Delete first element
+ *
+ * Removes the first element in the dqueue container,
+ * effectively reducing its size by one.
+ *
+ * dqueue: dqueue
+ *
+ * Note: dlist_empty() on first node return true after this
+ */
+static inline void dqueue_pop_front(struct dqueue_t *dqueue)
+{
+    if(dqueue->size)
+        dqueue_del(dqueue->head.next, dqueue);
+}
+
+
+
+/*
+ * dqueue_pop_back - Delete last element
+ *
+ * Removes the last element in the dqueue container,
+ * effectively reducing its size by one.
+ *
+ * dqueue: dqueue
+ *
+ * Note: dlist_empty() on last node return true after this
+ */
+static inline void dqueue_pop_back(struct dqueue_t *dqueue)
+{
+    if(dqueue->size)
+        dqueue_del(dqueue->head.prev, dqueue);
+}
+
+
+
 
 
 #endif // DQUEUE_H
