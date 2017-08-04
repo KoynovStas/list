@@ -390,6 +390,23 @@ static inline void dqueue_reverse(struct dqueue_t *dqueue)
 
 
 
+/*
+ * dqueue_swap - Exchanges the contents of the containers.
+ * Does not invoke any move, copy, or swap operations on individual elements.
+ */
+static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue2)
+{
+    if(dqueue1 == dqueue2)
+        return;
+
+    DECLARE_DQUEUE(tmp);
+
+    dqueue_splice_front(dqueue1, &tmp);
+    dqueue_splice_front(dqueue2, dqueue1);
+    dqueue_splice_front(&tmp, dqueue2);
+}
+
+
 
 
 #endif // DQUEUE_H
