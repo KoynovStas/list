@@ -1089,6 +1089,64 @@ TEST(test_dqueue_for_each)
 
 
 
+int comp_less(const dqueue_node *n1,const dqueue_node *n2)
+{
+    struct tmp_data *d1 = dqueue_data(n1, struct tmp_data, node);
+    struct tmp_data *d2 = dqueue_data(n2, struct tmp_data, node);
+
+    return d1->data < d2->data;
+}
+
+
+
+TEST(test_dqueue_min)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data  nodes[COUNT_NODES];
+    struct tmp_data  *tmp_data;
+    dqueue_node *min;
+
+
+    min = dqueue_min(dqueue_begin(&dqueue), dqueue_end(&dqueue), comp_less);
+    TEST_ASSERT(min == dqueue_end(&dqueue)); //min == end iterator (list empty)
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        dqueue_push_back(&nodes[i].node, &dqueue);
+    }
+
+
+    min = dqueue_min(dqueue_begin(&dqueue), dqueue_end(&dqueue), comp_less);
+    tmp_data = dqueue_data(min, struct tmp_data, node);
+
+    TEST_ASSERT(tmp_data->data == 0);
+
+
+    dqueue_init(&dqueue);  //clear
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = -i;
+        dqueue_push_back(&nodes[i].node, &dqueue);
+    }
+
+
+    min = dqueue_min(dqueue_begin(&dqueue), dqueue_end(&dqueue), comp_less);
+    tmp_data = dqueue_data(min, struct tmp_data, node);
+
+    TEST_ASSERT(tmp_data->data == -(COUNT_NODES-1));
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -1127,6 +1185,7 @@ ptest_func tests[] =
 
     //Algorithm
     test_dqueue_for_each,
+    test_dqueue_min,
 };
 
 
