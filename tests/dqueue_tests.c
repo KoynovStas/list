@@ -727,6 +727,30 @@ TEST(test_dqueue_first_data)
 
 
 
+TEST(test_dqueue_last_data)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+
+
+    dqueue_push_back(&d1.node, &dqueue);
+
+    TEST_ASSERT( dqueue_last_data(&dqueue, struct tmp_data, node) == &d1 );
+
+
+    dqueue_push_back(&d2.node, &dqueue);
+
+    TEST_ASSERT( dqueue_last_data(&dqueue, struct tmp_data, node) == &d2 );
+    TEST_ASSERT( dqueue_last_data(&dqueue, struct tmp_data, node) != &d1 ); //now d2 last
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -751,6 +775,7 @@ ptest_func tests[] =
     test_dqueue_data,
     test_dqueue_data_or_null,
     test_dqueue_first_data,
+    test_dqueue_last_data,
 };
 
 
