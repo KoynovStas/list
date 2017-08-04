@@ -520,6 +520,19 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
 
 
 
+/*
+ * dqueue_criter - constant revers iterate over a dqueue
+ *
+ * it:      the &dqueue_node to use as a loop cursor(iterator).
+ * dqueue:  the dqueue for work.
+ *
+ * Note You do not have to change dqueue in this cycle.
+ */
+#define dqueue_criter(it, dqueue) \
+    for( it = (dqueue)->head.prev; it != &(dqueue)->head; it = it->prev )
+
+
+
 
 
 #endif // DQUEUE_H
