@@ -176,6 +176,47 @@ TEST(test_dqueue_size)
 
 
 
+TEST(test_dqueue_del)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
+
+
+    //add
+    TEST_ASSERT(dqueue_size(&dqueue) == 0);  //size == 0 (list is empty)
+
+    dqueue_push_front(&d1.node, &dqueue);    //now d1 is first
+    dqueue_push_back(&d2.node, &dqueue);     //now d2 is last
+    dqueue_push_back(&d3.node, &dqueue);     //now d3 is last
+    TEST_ASSERT(dqueue_size(&dqueue) == 3);  //size == 3 (d1,d2, d3)
+
+
+    //delete
+    TEST_ASSERT(!dqueue_empty(&dqueue));     //d1 in list
+    dqueue_del(&d1.node, &dqueue);           //now d1 is not in list
+    TEST_ASSERT(dqueue_size(&dqueue) == 2);  //size == 2 (d2,d3)
+    TEST_ASSERT(dlist_empty(&d1.node));      //d1 is not in list
+
+
+    TEST_ASSERT(!dqueue_empty(&dqueue));      //d2 in list
+    dqueue_del(&d2.node, &dqueue);            //now d2 is not in list
+    TEST_ASSERT(dqueue_size(&dqueue) == 1);   //size == 1 (d3)
+    TEST_ASSERT(dlist_empty(&d2.node));       //d2 is not in list
+
+    TEST_ASSERT(!dqueue_empty(&dqueue));      //d3 in list
+    dqueue_del(&d3.node, &dqueue);            //now d3 is not in list
+    TEST_ASSERT(dqueue_size(&dqueue) == 0);   //size == 0 (list is empty)
+    TEST_ASSERT(dqueue_empty(&dqueue));
+    TEST_ASSERT(dlist_empty(&d3.node));       //d3 is not in list
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -183,6 +224,7 @@ ptest_func tests[] =
     test_dqueue_is_last,
     test_dqueue_is_singular,
     test_dqueue_size,
+    test_dqueue_del,
 
 };
 
