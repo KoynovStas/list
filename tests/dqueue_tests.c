@@ -107,11 +107,38 @@ TEST(test_dqueue_is_last)
 
 
 
+TEST(test_dqueue_is_singular)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+
+
+    TEST_ASSERT(!dqueue_is_singular(&dqueue));     //list must be empty (not singular)
+
+
+    dqueue_push_front(&d1.node, &dqueue);          //now d1 is first
+
+    TEST_ASSERT(dqueue_is_singular(&dqueue));      //list must be singular (in list only d1)
+
+
+    dqueue_push_back(&d2.node, &dqueue);           //now d2 is last
+
+    TEST_ASSERT(!dqueue_is_singular(&dqueue));     //list dont must be singular (in list d1,d2)
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
     test_dqueue_is_first,
     test_dqueue_is_last,
+    test_dqueue_is_singular,
 
 };
 
