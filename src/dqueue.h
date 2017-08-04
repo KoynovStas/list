@@ -83,9 +83,23 @@ static inline void dqueue_init(struct dqueue_t *dqueue)
 
 static inline void dqueue_init_node(dqueue_node *node)
 {
-    dlist_init_node(node);
+    dlist_init_head(node);
 }
 
+
+
+/*
+ * dqueue_empty - tests whether a dqueue is empty
+ *
+ * dqueue: the dqueue to test.
+ *
+ * ret: true  //if the container size is 0
+ * ret: false //otherwise.
+ */
+static inline int dqueue_empty(struct dqueue_t *dqueue)
+{
+    return dlist_empty(&dqueue->head);
+}
 
 
 
