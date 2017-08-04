@@ -852,6 +852,48 @@ TEST(test_dqueue_iter)
 
 
 
+TEST(test_dqueue_riter)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data nodes[COUNT_NODES];
+    dqueue_node *it;
+    dqueue_node *tmp_it;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+        dqueue_push_front(&nodes[i].node, &dqueue);
+
+
+    TEST_ASSERT( dqueue_size(&dqueue) == COUNT_NODES );
+
+
+    i=0;
+    dqueue_riter(it, tmp_it, &dqueue)   //dont change
+    {
+        TEST_ASSERT( it == &nodes[i].node );      //test nodes
+        i++;
+    }
+
+
+    i=0;
+    dqueue_riter(it, tmp_it, &dqueue)   //+ change (del)
+    {
+        if(i & 1)
+            dqueue_del(it, &dqueue);
+        i++;
+    }
+
+    TEST_ASSERT( dqueue_size(&dqueue) == (COUNT_NODES/2) );
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -882,6 +924,7 @@ ptest_func tests[] =
     test_dqueue_citer,
     test_dqueue_criter,
     test_dqueue_iter,
+    test_dqueue_riter,
 };
 
 
