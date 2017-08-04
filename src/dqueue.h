@@ -152,6 +152,19 @@ static inline int dqueue_is_singular(const struct dqueue_t *dqueue)
 
 
 
+/*
+ * dqueue_size - Returns the number of elements in the dqueue container.
+ *
+ * dqueue: the dqueue to test.
+ * ret:  the number of elements in the dqueue
+ */
+static inline size_t dqueue_size(const struct dqueue_t *dqueue)
+{
+    return dqueue->size;
+}
+
+
+
 
 
 #endif // DQUEUE_H
