@@ -409,4 +409,27 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
 
 
 
+
+//---------------- Get Data from node ----------------
+
+
+
+
+
+/*
+ * dqueue_data - get the struct (data) for this node
+ *
+ * node:   the node.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(dqueue_node) within the struct of data.
+ */
+#define dqueue_data(node, type, member) \
+     (type *)( (const char *)node - offsetof(type, member) )
+
+
+
+
+
+
+
 #endif // DQUEUE_H
