@@ -262,6 +262,51 @@ TEST(test_dqueue_pop_front)
 
 
 
+TEST(test_dqueue_pop_back)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
+
+
+    //add
+    dqueue_push_front(&d1.node, &dqueue);   //now d1 is first
+    dqueue_push_front(&d2.node, &dqueue);   //now d2 is first
+    dqueue_push_front(&d3.node, &dqueue);   //now d3 is first
+    TEST_ASSERT(dqueue_size(&dqueue) == 3); //size == 3 (d3, d2, d1)
+
+
+    dqueue_pop_back(&dqueue);
+    TEST_ASSERT(dqueue_size(&dqueue) == 2);           //size == 2 (d2, d1)
+    TEST_ASSERT(dlist_empty(&d1.node));
+    TEST_ASSERT(dqueue_is_first(&d3.node, &dqueue));  //(d3, d2)
+
+
+    dqueue_pop_back(&dqueue);
+    TEST_ASSERT(dqueue_size(&dqueue) == 1);          //size == 1 (d3)
+    TEST_ASSERT(dlist_empty(&d2.node));
+    TEST_ASSERT(dqueue_is_first(&d3.node, &dqueue)); //(d3)
+
+
+    dqueue_pop_back(&dqueue);
+    TEST_ASSERT(dqueue_size(&dqueue) == 0);           //size == 0 ()
+    TEST_ASSERT(dqueue_empty(&dqueue));
+    TEST_ASSERT(dlist_empty(&d3.node));
+
+
+    //list empty
+    dqueue_pop_back(&dqueue);
+    TEST_ASSERT(dqueue_size(&dqueue) == 0);           //size == 0 ()
+    TEST_ASSERT(dqueue_empty(&dqueue));
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -271,6 +316,7 @@ ptest_func tests[] =
     test_dqueue_size,
     test_dqueue_del,
     test_dqueue_pop_front,
+    test_dqueue_pop_back,
 
 };
 
