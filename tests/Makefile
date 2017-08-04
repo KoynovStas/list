@@ -11,6 +11,7 @@ GCC     =  gcc #clang-3.5
 TESTS  = list_tests      \
          dlist_tests     \
          stack_tests     \
+         dqueue_tests    \
          spqueue_tests   \
          pqueue_tests
 
