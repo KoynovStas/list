@@ -40,6 +40,62 @@
 #include "dlist.h"
 
 
+/*
+ * The DQUEUE is a container adapter that gives the programmer
+ * the functionality of a double-ended queue.
+ *
+ * This adapter uses dlist like inner container.
+ *
+ *
+ *
+ *  Algorithmic complexity:
+ *
+ *  dqueue_size            -     O(1)  //very big difference from the dlist
+ *  dqueue_empty           -     O(1)  use it for check
+ *  dqueue_is_first        -     O(1)
+ *  dqueue_is_last         -     O(1)
+ *  dqueue_is_singular     -     O(1)
+ *
+ *  dqueue_push_front      -     O(1)
+ *  dqueue_pop_front       -     O(1)
+ *  dqueue_push_back       -     O(1)
+ *  dqueue_pop_back        -     O(1)
+ *  dqueue_del             -     O(1)
+ *  dqueue_replace         -     O(1)
+ *  dqueue_replace_init    -     O(1)
+ *  dqueue_move_to_front   -     O(1)
+ *  dqueue_move_to_back    -     O(1)
+ *  dqueue_rotate_left     -     O(1)
+ *  dqueue_rotate_right    -     O(1)
+ *  dqueue_splice_front    -     O(1)
+ *  dqueue_splice_back     -     O(1)
+ *  dqueue_reverse         -     O(n)
+ *  dqueue_swap            -     O(1)
+ *
+ *  //Get Data from node
+ *  dqueue_data            -     O(1)
+ *  dqueue_first_data      -     O(1)
+ *  dqueue_last_data       -     O(1)
+ *
+ *  //Iterator
+ *  dqueue_citer           -     O(n)
+ *  dqueue_criter          -     O(n)
+ *  dqueue_iter            -     O(n)
+ *  dqueue_riter           -     O(n)
+ *  dqueue_data_citer      -     O(n)
+ *  dqueue_data_criter     -     O(n)
+ *  dqueue_data_iter       -     O(n)
+ *  dqueue_data_riter      -     O(n)
+ *
+ *  //Algorithm
+ *  dqueue_for_each        -     O(n)
+ *  dqueue_min             -     O(n)
+ *  dqueue_max             -     O(n)
+ *  dqueue_minmax          -     O(n)
+ *  dqueue_find            -     O(n)
+ *  dqueue_find2           -     O(n)
+ */
+
 
 
 
