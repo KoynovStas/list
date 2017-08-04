@@ -1249,6 +1249,41 @@ TEST(test_dqueue_minmax)
 
 
 
+int pred_50(const dqueue_node *it)
+{
+    struct tmp_data *data = dqueue_data(it, struct tmp_data, node);
+
+    return data->data == 50;
+}
+
+
+
+TEST(test_dqueue_find)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data   nodes[COUNT_NODES];
+    dqueue_node *f;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        dqueue_push_back(&nodes[i].node, &dqueue);
+    }
+
+
+    f = dqueue_find(dqueue_begin(&dqueue), dqueue_end(&dqueue), pred_50);
+
+    TEST_ASSERT( f == &nodes[50].node );
+
+
+    TEST_PASS(NULL);
+}
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -1290,6 +1325,7 @@ ptest_func tests[] =
     test_dqueue_min,
     test_dqueue_max,
     test_dqueue_minmax,
+    test_dqueue_find,
 };
 
 
