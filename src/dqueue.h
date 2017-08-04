@@ -205,5 +205,24 @@ static inline void dqueue_push_back(dqueue_node *node, struct dqueue_t *dqueue)
 
 
 
+/*
+ * dqueue_del - deletes node from dqueue.
+ *
+ * node: the element to delete from the dqueue.
+ *
+ * Note: dlist_empty() on node return true after this
+ *
+ * before:  [prev] <-> [node] <-> [next]
+ * after:   [prev] <-> [next];              self <- [node] -> self
+ */
+static inline void dqueue_del(dqueue_node *node, struct dqueue_t *dqueue)
+{
+    dlist_del(node);
+    dqueue->size--;
+}
+
+
+
+
 
 #endif // DQUEUE_H
