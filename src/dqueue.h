@@ -507,6 +507,26 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
 
 
 /*
+ * dqueue_begin - Return begin iterator for dqueue.
+ */
+static inline dqueue_node* dqueue_begin(struct dqueue_t *dqueue)
+{
+    return dqueue->head.next;
+}
+
+
+
+/*
+ * dqueue_end - Return end iterator for dqueue.
+ */
+static inline dqueue_node* dqueue_end(struct dqueue_t *dqueue)
+{
+    return &dqueue->head;
+}
+
+
+
+/*
  * dqueue_citer - constant iterate over a dqueue
  *
  * it:      the &dqueue_node to use as a loop cursor(iterator).

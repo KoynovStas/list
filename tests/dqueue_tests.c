@@ -1043,6 +1043,52 @@ TEST(test_dqueue_data_riter)
 
 
 
+//---------------- Algorithm ----------------
+
+
+
+void node_inc(dqueue_node *it)
+{
+    struct tmp_data *data = dqueue_data(it, struct tmp_data, node);
+
+    data->data++;
+}
+
+
+
+TEST(test_dqueue_for_each)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data  nodes[COUNT_NODES];
+    struct tmp_data  *it_data;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+    {
+        nodes[i].data = i;
+        dqueue_push_back(&nodes[i].node, &dqueue);
+    }
+
+
+    dqueue_for_each(dqueue_begin(&dqueue), dqueue_end(&dqueue), node_inc);
+
+
+    i=0;
+    dqueue_data_citer(it_data, &dqueue, struct tmp_data, node)
+    {
+        TEST_ASSERT( it_data->data == (i+1) );
+        i++;
+    }
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -1078,6 +1124,9 @@ ptest_func tests[] =
     test_dqueue_data_criter,
     test_dqueue_data_iter,
     test_dqueue_data_riter,
+
+    //Algorithm
+    test_dqueue_for_each,
 };
 
 
