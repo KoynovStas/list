@@ -283,4 +283,32 @@ static inline void dqueue_replace_init(dqueue_node *old_node,
 
 
 
+/*
+ * dqueue_move_to_front - move node to front
+ *
+ * node: the node to move
+ * dqueue: the dqueue that Contains our node
+ */
+static inline void dqueue_move_to_front(dqueue_node *node,struct dqueue_t *dqueue)
+{
+    dlist_move_to_front(node, &dqueue->head);
+}
+
+
+
+/*
+ * dqueue_move_to_back - move node to back
+ *
+ * node: the node to move
+ * dqueue: the dqueue that Contains our node
+ */
+static inline void dqueue_move_to_back(dqueue_node *node, struct dqueue_t *dqueue)
+{
+    dlist_move_to_back(node, &dqueue->head);
+}
+
+
+
+
+
 #endif // DQUEUE_H
