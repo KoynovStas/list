@@ -667,6 +667,21 @@ TEST(test_dqueue_swap)
 
 
 
+//---------------- Get Data from node ----------------
+
+
+
+TEST(test_dqueue_data)
+{
+    DECLARE_TMP_DATA(d1);
+
+    TEST_ASSERT( dqueue_data(&d1.node, struct tmp_data, node) == &d1 );
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -687,6 +702,8 @@ ptest_func tests[] =
     test_dqueue_reverse,
     test_dqueue_swap,
 
+    //Get Data from node
+    test_dqueue_data,
 };
 
 
