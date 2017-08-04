@@ -165,6 +165,25 @@ static inline size_t dqueue_size(const struct dqueue_t *dqueue)
 
 
 
+/*
+ * dqueue_push_front - add a new node
+ *
+ * node: new node to be added
+ * dqueue: dqueue to add it after
+ *
+ * Inserts a new node at the beginning of the dqueue,
+ * before its current first element.
+ *
+ * before:  [prev] <-> [head] <-> [next]
+ * after:   [prev] <-> [head] <-> [node] <-> [next]
+ */
+static inline void dqueue_push_front(dqueue_node *node, struct dqueue_t *dqueue)
+{
+    dlist_push_front(node, &dqueue->head);
+    dqueue->size++;
+}
+
+
 
 
 #endif // DQUEUE_H
