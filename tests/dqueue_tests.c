@@ -44,9 +44,41 @@ TEST(test_dqueue_empty)
 
 
 
+TEST(test_dqueue_is_first)
+{
+    DECLARE_DQUEUE(dqueue1);
+    DECLARE_DQUEUE(dqueue2);
+
+    DECLARE_TMP_DATA(d1);
+    DECLARE_TMP_DATA(d2);
+    DECLARE_TMP_DATA(d3);
+
+
+    dqueue_push_front(&d1.node, &dqueue1);              //now d1 is first
+
+    TEST_ASSERT(dqueue_is_first(&d1.node, &dqueue1));   //d1 must be first
+
+
+    dqueue_push_front(&d2.node, &dqueue1);              //now d2 is first
+
+    TEST_ASSERT(dqueue_is_first(&d2.node, &dqueue1));   //d2 must be first
+    TEST_ASSERT(!dqueue_is_first(&d1.node, &dqueue1));  //d1 is not first (d1 is last)
+
+
+    dqueue_push_front(&d3.node, &dqueue2);              //now d3 is first
+    TEST_ASSERT(!dqueue_is_first(&d3.node, &dqueue1));  //d3 is not first (d3 out of the dqueue1.)
+    TEST_ASSERT(dqueue_is_first(&d3.node, &dqueue2));   //d3 is first in dqueue2
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
+    test_dqueue_is_first,
 
 };
 
