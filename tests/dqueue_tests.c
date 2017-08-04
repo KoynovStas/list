@@ -751,6 +751,37 @@ TEST(test_dqueue_last_data)
 
 
 
+//---------------- Iterator ----------------
+
+
+
+TEST(test_dqueue_citer)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    const int COUNT_NODES = 100;
+    int i;
+    struct tmp_data nodes[COUNT_NODES];
+    dqueue_node *it;
+
+
+    for(i=0; i < COUNT_NODES; i++)
+        dqueue_push_back(&nodes[i].node, &dqueue);
+
+
+    i=0;
+    dqueue_citer(it, &dqueue)
+    {
+        TEST_ASSERT( it == &nodes[i].node );  //test nodes
+        i++;
+    }
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -776,6 +807,9 @@ ptest_func tests[] =
     test_dqueue_data_or_null,
     test_dqueue_first_data,
     test_dqueue_last_data,
+
+    //Iterator
+    test_dqueue_citer,
 };
 
 
