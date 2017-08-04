@@ -540,9 +540,23 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
  * tmp_it: another &dqueue_node to use as temporary cursor(iterator)
  * dqueue: the dqueue for work.
  */
-#define dqueue_iter(it, tmp_it, dqueue)                         \
+#define dqueue_iter(it, tmp_it, dqueue)                                      \
     for( it = (dqueue)->head.next, tmp_it = it->next; it != &(dqueue)->head; \
          it = tmp_it, tmp_it = it->next)
+
+
+
+/*
+ * dqueue_riter - reverse iterate over a dqueue safe against removal of dqueue node
+ *
+ * it:     the &dqueue_node to use as a loop cursor(iterator).
+ * tmp_it: another &dqueue_node to use as temporary cursor(iterator)
+ * dqueue: the dqueue for work.
+ */
+#define dqueue_riter(it, tmp_it, dqueue)              \
+    for(it  = (dqueue)->head.prev, tmp_it = it->prev; \
+        it != &(dqueue)->head;                        \
+        it  = tmp_it, tmp_it = it->prev)
 
 
 
