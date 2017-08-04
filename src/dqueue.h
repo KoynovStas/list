@@ -120,6 +120,22 @@ static inline int dqueue_is_first(const dqueue_node *node,
 
 
 
+/*
+ * dqueue_is_last - tests whether node is the last node in dqueue
+ *
+ * node: the node to test
+ * dqueue: the dqueue
+ *
+ *  ret: true   // if [...] <-> [node] <-> [head] <-> [...]
+ *  ret: false  // else
+ */
+static inline int dqueue_is_last(const dqueue_node *node,
+                                 const struct dqueue_t *dqueue)
+{
+    return node == dqueue->head.prev;
+}
+
+
 
 
 
