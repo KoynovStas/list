@@ -577,6 +577,23 @@ static inline void dqueue_swap(struct dqueue_t *dqueue1, struct dqueue_t *dqueue
 
 
 
+/*
+ * dqueue_data_criter - constant reverse iterate over dqueue of given type (data)
+ *
+ * it:     the &dqueue_node to use as a loop cursor(iterator).
+ * dqueue: the dqueue for work.
+ * type:   the type of the struct of data this is embedded in.
+ * member: the name of the node(dqueue_node) within the struct of data.
+ *
+ * Note You do not have to change dqueue in this cycle.
+ */
+#define dqueue_data_criter(it, dqueue, type, member)          \
+    for (it = dqueue_data((dqueue)->head.prev, type, member); \
+         &it->member != &(dqueue)->head;                      \
+         it = dqueue_data(it->member.prev, type, member))
+
+
+
 
 
 #endif // DQUEUE_H
