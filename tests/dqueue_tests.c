@@ -682,6 +682,27 @@ TEST(test_dqueue_data)
 
 
 
+TEST(test_dqueue_data_or_null)
+{
+    DECLARE_DQUEUE(dqueue);
+
+    DECLARE_TMP_DATA(d1);
+
+    dqueue_init_node(&d1.node);
+
+    TEST_ASSERT( dqueue_data_or_null(&d1.node, struct tmp_data, node) == NULL );
+
+
+    dqueue_push_front(&d1.node, &dqueue);
+
+    TEST_ASSERT( dqueue_data_or_null(&d1.node, struct tmp_data, node) == &d1 );
+
+
+    TEST_PASS(NULL);
+}
+
+
+
 ptest_func tests[] =
 {
     test_dqueue_empty,
@@ -704,6 +725,7 @@ ptest_func tests[] =
 
     //Get Data from node
     test_dqueue_data,
+    test_dqueue_data_or_null,
 };
 
 
