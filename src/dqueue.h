@@ -185,5 +185,25 @@ static inline void dqueue_push_front(dqueue_node *node, struct dqueue_t *dqueue)
 
 
 
+/*
+ * dqueue_push_back - add a new node
+ *
+ * node: new node to be added
+ * dqueue: dqueue to add it before
+ *
+ * Insert a new node at the end of the list,
+ * after its current last element.
+ *
+ * before:  [prev] <-> [head] <-> [next]
+ * after:   [prev] <-> [node] <-> [head] <-> [next]
+ */
+static inline void dqueue_push_back(dqueue_node *node, struct dqueue_t *dqueue)
+{
+    dlist_push_back(node, &dqueue->head);
+    dqueue->size++;
+}
+
+
+
 
 #endif // DQUEUE_H
